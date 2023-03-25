@@ -1,4 +1,4 @@
 .vscode/
 .idea/
 __pycache__/
-datasets/anvisa/TA_PRECOS_MEDICAMENTOS.csv
+datasets/*
