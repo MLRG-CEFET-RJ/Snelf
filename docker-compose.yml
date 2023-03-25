@@ -54,6 +54,6 @@ services:
 volumes:
   snelf-data:
   
-# networks:
-#   default:
-#     name: snelf-network
+ #networks:
+ #   default:
+ #    name: snelf-network
