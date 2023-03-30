@@ -138,7 +138,7 @@ def run():
     data_file = 'anvisa_produto_aumentado_mod.csv'
     src = '{}{}'.format(data_path, data_file)
 
-    df = pd.read_csv(src, dtype={0: int, 1: str, 2: str}, sep=';')
+    df = pd.read_csv(src, dtype={0: int, 1: str, 2: str}, sep=';', encoding='windows-1252')
     df.shape
 
     """### Removendo substrings com base nas palavras da descrição original
