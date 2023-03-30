@@ -37,7 +37,7 @@ def is_subset(subset, complete_set):
 
 
 def load_data(src_file):
-    with open(src_file, 'r') as f:
+    with open(src_file, 'r', encoding='utf-8') as f:
         return f.readlines()
 
 
@@ -111,11 +111,10 @@ def init_set(descricao, ean, dataset_name):
 
 
 def main():
-    # print("RODOU")
-    # return
-
     args = argument_parser()
 
+    # print(args.src_file)
+    # print(args.target_file)
     # TODO: validar args
 
     # inicializando o log

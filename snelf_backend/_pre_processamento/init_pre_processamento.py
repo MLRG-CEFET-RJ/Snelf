@@ -11,7 +11,7 @@ from _training import train_test_split
 def run():
     # PRE PROCESSAMENTO 1
     pre_proc_anvisa.run()
-    pre_proc_medicamentos.run()
+    # pre_proc_medicamentos.run()
 
     # DATA AUGMENTATION
     init_data_augmentation.run()
