@@ -181,9 +181,9 @@ def run():
     df_grouped = df_removed.groupby('master_idx')['removed_idx'].apply(list).reset_index()
     df_grouped.head()
 
-    master, removed = df_grouped.loc[3002].values
-    indexes = [master] + removed
-    df.loc[indexes][['cod', 'descricao']]
+    # master, removed = df_grouped.loc[3002].values
+    # indexes = [master] + removed
+    # df.loc[indexes][['cod', 'descricao']]
 
     # DEBUG
 
