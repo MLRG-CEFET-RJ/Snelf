@@ -108,8 +108,8 @@ def run():
         buff = 300
         content = ''
 
-        with open(src, 'r') as fs:
-            with open(target, 'w') as ft:
+        with open(src, 'r', encoding='utf-8') as fs:
+            with open(target, 'w', encoding='utf-8') as ft:
                 ft.write(fs.readline())  # header
                 lines = fs.readlines(buff)
                 while lines:
@@ -138,7 +138,7 @@ def run():
     data_file = 'anvisa_produto_aumentado_mod.csv'
     src = '{}{}'.format(data_path, data_file)
 
-    df = pd.read_csv(src, dtype={0: int, 1: str, 2: str}, sep=';', encoding='windows-1252')
+    df = pd.read_csv(src, dtype={0: int, 1: str, 2: str}, sep=';', encoding='utf-8')
     df.shape
 
     """### Removendo substrings com base nas palavras da descrição original

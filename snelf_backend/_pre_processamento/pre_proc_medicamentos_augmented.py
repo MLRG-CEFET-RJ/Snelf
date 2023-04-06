@@ -105,8 +105,8 @@ def run():
     buff = 300
     content = ''
 
-    with open(src, 'r') as fs:
-        with open(target, 'w') as ft:
+    with open(src, 'r', encoding='utf-8') as fs:
+        with open(target, 'w', encoding='utf-8') as ft:
             ft.write(fs.readline())  # header
             lines = fs.readlines(buff)
             while lines:
@@ -168,11 +168,11 @@ def run():
     df_grouped = df_removed.groupby('master_idx')['removed_idx'].apply(list).reset_index()
     df_grouped.head()
 
-    pd.set_option('display.max_colwidth', -1)
+    pd.set_option('display.max_colwidth', None)
 
-    master, removed = df_grouped.loc[4000].values
-    indexes = [master] + removed
-    df.loc[indexes][['cod', 'descricao']]
+    # master, removed = df_grouped.loc[4000].values
+    # indexes = [master] + removed
+    # df.loc[indexes][['cod', 'descricao']]
 
     # DEBUG
 

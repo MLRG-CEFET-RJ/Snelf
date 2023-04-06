@@ -1,7 +1,8 @@
-from _log import init_log, register_log
+import datetime
+from _data_augmentation.Args import Args
 import argparse
-from _google import googleSearch
-
+from _data_augmentation._log import register_log, init_log
+from _data_augmentation._google import googleSearch
 
 def argument_parser():
     """A method to parse up command line parameters."""
@@ -48,12 +49,14 @@ def create_file(target_file):
 
 
 def write_data(target_file, data):
-    with open(target_file, 'a') as f:
+    with open(target_file, 'a', encoding='utf-8') as f:
+        print("\n" + datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " | OPENING: " + str(target_file) + "\n")
         f.write(''.join(data))
 
 
 def extract_terms_medicamentos(extract_args):
     row, _ = extract_args
+    print(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " | " + row.rstrip('\n'))
     descricao, ean = row.rstrip('\n').split(';')
     termos_desc = [t for t in descricao.split() if len(t) > 2]
     return ean, descricao, termos_desc
@@ -61,6 +64,7 @@ def extract_terms_medicamentos(extract_args):
 
 def extract_terms_anvisa(extract_args):
     row, use_col = extract_args
+    print(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " | " + row.rstrip('\n'))
     ean, produto, apresentacao, principio_ativo = row.rstrip('\n').split(';')
     if use_col == 'produto':
         col = produto
@@ -110,12 +114,7 @@ def init_set(descricao, ean, dataset_name):
     return s
 
 
-def main():
-    args = argument_parser()
-
-    # print(args.src_file)
-    # print(args.target_file)
-    # TODO: validar args
+def run(args: Args):
 
     # inicializando o log
     init_log(args.dataset_name, args.use_col)
@@ -136,45 +135,53 @@ def main():
 
     register_log('Process started.', print_msg=True)
 
+    data = data[1:]  # DESCARTA A PRIMEIRA LINHA POIS É CABEÇALHO
+    # data = data[:500]
+
+    linhas_lidas = 0
+    total_linhas = len(data)
+
     # process
-    for i in range(1, len(data)):
+    while len(data) > 0:
 
-        row = data[i]
+        dez_linhas = data[:1]
 
-        # separa o termos
-        extract_args = [row, args.use_col]
-        ean, descricao, termos_desc = extract_terms(extract_args)
+        for row in dez_linhas:
 
-        if descricao is None:
-            continue
+            linhas_lidas += 1
 
-        # init set
-        s = init_set(descricao, ean, args.dataset_name)
+            # separa o termos
+            extract_args = [row, args.use_col]
+            ean, descricao, termos_desc = extract_terms(extract_args)
 
-        # realiza a busca no google
-        response = googleSearch(descricao, delay=args.request_delay)
+            if descricao is None:
+                continue
 
-        # extrai os dados pertinentes
-        proc_response(response, termos_desc, ean, s, args.dataset_name)
+            # init set
+            s = init_set(descricao, ean, args.dataset_name)
 
-        # adiciona à lista aumentada
-        for elem in sorted(s):
-            data_augmented.append(elem)
+            # realiza a busca no google
+            response = googleSearch(descricao, delay=args.request_delay)
 
-        # descarrega o buffer em arquivo
-        if len(data_augmented) > buffer:
-            write_data(args.target_file, data_augmented)
-            data_augmented = list()
+            # extrai os dados pertinentes
+            proc_response(response, termos_desc, ean, s, args.dataset_name)
 
-        if i % 100 == 0:
-            register_log('{} rows processed.'.format(i))
+            # adiciona à lista aumentada
+            for elem in sorted(s):
+                data_augmented.append(elem)
+
+            # descarrega o buffer em arquivo
+            if len(data_augmented) > buffer:
+                write_data(args.target_file, data_augmented)
+                data_augmented = list()
+
+            if linhas_lidas % 100 == 0:
+                register_log('{}/{} rows processed.'.format(linhas_lidas, total_linhas))
+
+        del data[:1]
 
     # descarrega o buffer residual em arquivo
     if len(data_augmented) > 0:
         write_data(args.target_file, data_augmented)
 
     register_log('Process finished.', print_msg=True)
-
-
-if __name__ == "__main__":
-    main()

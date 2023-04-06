@@ -30,7 +30,7 @@ def run():
     df_test['label'] = '__label__' + df_test['chave'].astype(str)
     df_test.drop(['cod', 'chave'], axis=1, inplace=True)
     df_test = df_test[['label', 'descricao']]
-    np.savetxt('../datasets/data.test.txt', df_test, fmt='%s')
+    np.savetxt('../datasets/data.test.txt', df_test, fmt='%s', encoding='utf-8')
     print('Amount of classes: ', df_test['label'].unique().shape[0])
     print('Num of test records: ', df_test.shape[0])
 
@@ -42,5 +42,5 @@ def run():
     df['label'] = '__label__' + df['chave'].astype(str)
     df.drop(['cod', 'chave'], axis=1, inplace=True)
     df = df[['label', 'descricao']]
-    np.savetxt('../datasets/data.train.txt', df, fmt='%s')
+    np.savetxt('../datasets/data.train.txt', df, fmt='%s', encoding='utf-8')
     print('Num train records: ', df.shape[0])
