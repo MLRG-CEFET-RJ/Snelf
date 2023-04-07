@@ -3,6 +3,8 @@ from fastapi import Body, FastAPI, File, UploadFile, Query, Request
 from fastapi.middleware import Middleware
 # from starlette.middleware.cors import CORSMiddleware
 from fastapi.middleware.cors import CORSMiddleware
+
+from _pre_processamento import init_pre_processamento
 from pre_processamento import inicia_pre_processamento
 import fasttext 
 from importar_csv_para_sql import fill_db_tables, insert_transactions, get_medicines_from_label, getTransactionsFromClean, get_transactions_from_product
@@ -10,6 +12,8 @@ import pdb
 import unittest
 import numpy as np
 
+#agora vai
+init_pre_processamento.run()
 
 app = FastAPI(debug=True)
 
