@@ -50,13 +50,12 @@ def create_file(target_file):
 
 def write_data(target_file, data):
     with open(target_file, 'a', encoding='utf-8') as f:
-        print("\n" + datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " | OPENING: " + str(target_file) + "\n")
         f.write(''.join(data))
 
 
 def extract_terms_medicamentos(extract_args):
     row, _ = extract_args
-    print(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " | " + row.rstrip('\n'))
+    print("[" + datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S") + "] MEDICAMENTOS | " + row.rstrip('\n'))
     descricao, ean = row.rstrip('\n').split(';')
     termos_desc = [t for t in descricao.split() if len(t) > 2]
     return ean, descricao, termos_desc
@@ -64,7 +63,7 @@ def extract_terms_medicamentos(extract_args):
 
 def extract_terms_anvisa(extract_args):
     row, use_col = extract_args
-    print(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " | " + row.rstrip('\n'))
+    print("[" + datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S") + "] ANVISA | " + row.rstrip('\n'))
     ean, produto, apresentacao, principio_ativo = row.rstrip('\n').split(';')
     if use_col == 'produto':
         col = produto
@@ -136,7 +135,7 @@ def run(args: Args):
     register_log('Process started.', print_msg=True)
 
     data = data[1:]  # DESCARTA A PRIMEIRA LINHA POIS É CABEÇALHO
-    # data = data[:500]
+    # data = data[:1000]
 
     linhas_lidas = 0
     total_linhas = len(data)
@@ -172,6 +171,7 @@ def run(args: Args):
 
             # descarrega o buffer em arquivo
             if len(data_augmented) > buffer:
+                print("\n[" + datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S") + "] BUFFER | " + str(args.target_file) + "\n")
                 write_data(args.target_file, data_augmented)
                 data_augmented = list()
 
@@ -182,6 +182,7 @@ def run(args: Args):
 
     # descarrega o buffer residual em arquivo
     if len(data_augmented) > 0:
+        print("\n[" + datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S") + "] BUFFER FINAL | " + str(args.target_file) + "\n")
         write_data(args.target_file, data_augmented)
 
     register_log('Process finished.', print_msg=True)

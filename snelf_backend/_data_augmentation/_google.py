@@ -25,7 +25,7 @@ def googleSearch(query, delay):
 
     try:
         headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36'}
-        with requests.get(url, headers=headers) as html:
+        with requests.get(url, headers=headers, timeout=5) as html:
             while html.status_code!=200:
                 # test sleep
                 #rand = random.randrange(1,10)

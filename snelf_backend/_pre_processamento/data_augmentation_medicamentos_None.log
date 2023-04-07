@@ -9664,3 +9664,263 @@ INFO:root:[2023-04-06T13:23:54.172692] 300/500 rows processed.
 INFO:root:[2023-04-06T13:26:25.158015] 400/500 rows processed.
 INFO:root:[2023-04-06T13:29:05.998722] 500/500 rows processed.
 INFO:root:[2023-04-06T13:29:05.999722] Process finished.
+INFO:root:[2023-04-06T13:34:09.427764] Log started. Log file: data_augmentation_medicamentos_None.log
+INFO:root:[2023-04-06T13:34:09.435763] Data loaded.
+INFO:root:[2023-04-06T13:34:09.436765] Target file created.
+INFO:root:[2023-04-06T13:34:09.436765] Initialized variables.
+INFO:root:[2023-04-06T13:34:09.436765] Process started.
+INFO:root:[2023-04-06T13:37:10.506101] 100/1000 rows processed.
+INFO:root:[2023-04-06T13:40:00.595515] 200/1000 rows processed.
+INFO:root:[2023-04-06T13:42:47.812967] 300/1000 rows processed.
+INFO:root:[2023-04-06T13:45:39.484663] 400/1000 rows processed.
+INFO:root:[2023-04-06T13:48:29.844189] 500/1000 rows processed.
+INFO:root:[2023-04-06T13:51:21.968480] 600/1000 rows processed.
+INFO:root:[2023-04-06T13:54:11.079005] 700/1000 rows processed.
+INFO:root:[2023-04-06T13:56:57.701328] 800/1000 rows processed.
+INFO:root:[2023-04-06T13:59:48.076357] 900/1000 rows processed.
+INFO:root:[2023-04-06T14:02:43.764264] 1000/1000 rows processed.
+INFO:root:[2023-04-06T14:02:43.764264] Process finished.
+INFO:root:[2023-04-06T14:02:43.765254] Log started. Log file: data_augmentation_anvisa_produto.log
+INFO:root:[2023-04-06T14:02:43.787249] Data loaded.
+INFO:root:[2023-04-06T14:02:43.788249] Target file created.
+INFO:root:[2023-04-06T14:02:43.788249] Initialized variables.
+INFO:root:[2023-04-06T14:02:43.788249] Process started.
+INFO:root:[2023-04-06T14:05:32.151776] 100/1000 rows processed.
+INFO:root:[2023-04-06T14:08:23.652548] 200/1000 rows processed.
+INFO:root:[2023-04-06T14:11:15.246609] 300/1000 rows processed.
+INFO:root:[2023-04-06T14:14:04.234540] 400/1000 rows processed.
+INFO:root:[2023-04-06T14:16:53.058797] 500/1000 rows processed.
+INFO:root:[2023-04-06T14:19:47.981746] 600/1000 rows processed.
+INFO:root:[2023-04-06T14:22:46.667161] 700/1000 rows processed.
+INFO:root:[2023-04-06T14:25:44.067336] 800/1000 rows processed.
+INFO:root:[2023-04-06T14:28:53.059209] 900/1000 rows processed.
+INFO:root:[2023-04-06T14:31:55.370097] 1000/1000 rows processed.
+INFO:root:[2023-04-06T14:31:55.371097] Process finished.
+INFO:root:[2023-04-06T14:31:55.372097] Log started. Log file: data_augmentation_anvisa_principio_ativo.log
+INFO:root:[2023-04-06T14:31:55.389097] Data loaded.
+INFO:root:[2023-04-06T14:31:55.390097] Target file created.
+INFO:root:[2023-04-06T14:31:55.390097] Initialized variables.
+INFO:root:[2023-04-06T14:31:55.390097] Process started.
+INFO:root:[2023-04-06T18:40:51.289375] Log started. Log file: data_augmentation_medicamentos_None.log
+INFO:root:[2023-04-06T18:40:51.296378] Data loaded.
+INFO:root:[2023-04-06T18:40:51.297378] Target file created.
+INFO:root:[2023-04-06T18:40:51.297378] Initialized variables.
+INFO:root:[2023-04-06T18:40:51.297378] Process started.
+INFO:root:[2023-04-06T18:42:33.792435] 100/1000 rows processed.
+INFO:root:[2023-04-06T18:43:52.146643] 200/1000 rows processed.
+INFO:root:[2023-04-06T18:45:08.347760] 300/1000 rows processed.
+INFO:root:[2023-04-06T18:46:25.604937] 400/1000 rows processed.
+INFO:root:[2023-04-06T18:48:01.062702] 500/1000 rows processed.
+INFO:root:[2023-04-06T18:50:57.120678] 600/1000 rows processed.
+INFO:root:[2023-04-06T18:53:55.095315] 700/1000 rows processed.
+INFO:root:[2023-04-06T18:56:54.371246] 800/1000 rows processed.
+INFO:root:[2023-04-06T18:59:50.888622] 900/1000 rows processed.
+INFO:root:[2023-04-06T19:02:59.434432] 1000/1000 rows processed.
+INFO:root:[2023-04-06T19:02:59.435432] Process finished.
+INFO:root:[2023-04-06T19:02:59.436431] Log started. Log file: data_augmentation_anvisa_produto.log
+INFO:root:[2023-04-06T19:02:59.458430] Data loaded.
+INFO:root:[2023-04-06T19:02:59.459431] Target file created.
+INFO:root:[2023-04-06T19:02:59.459431] Initialized variables.
+INFO:root:[2023-04-06T19:02:59.459431] Process started.
+INFO:root:[2023-04-06T19:06:11.417060] 100/1000 rows processed.
+INFO:root:[2023-04-06T19:09:19.452503] 200/1000 rows processed.
+INFO:root:[2023-04-06T19:12:22.055122] 300/1000 rows processed.
+INFO:root:[2023-04-06T19:15:24.871127] 400/1000 rows processed.
+INFO:root:[2023-04-06T19:18:27.636661] 500/1000 rows processed.
+INFO:root:[2023-04-06T19:21:33.737331] 600/1000 rows processed.
+INFO:root:[2023-04-06T19:24:40.114018] 700/1000 rows processed.
+INFO:root:[2023-04-06T19:27:49.177471] 800/1000 rows processed.
+INFO:root:[2023-04-06T19:31:00.562098] 900/1000 rows processed.
+INFO:root:[2023-04-06T19:34:09.208063] 1000/1000 rows processed.
+INFO:root:[2023-04-06T19:34:09.209064] Process finished.
+INFO:root:[2023-04-06T19:34:09.210064] Log started. Log file: data_augmentation_anvisa_principio_ativo.log
+INFO:root:[2023-04-06T19:34:09.228099] Data loaded.
+INFO:root:[2023-04-06T19:34:09.229065] Target file created.
+INFO:root:[2023-04-06T19:34:09.229065] Initialized variables.
+INFO:root:[2023-04-06T19:34:09.229065] Process started.
+INFO:root:[2023-04-06T19:35:48.844981] 100/1000 rows processed.
+INFO:root:[2023-04-06T19:38:22.376572] 200/1000 rows processed.
+INFO:root:[2023-04-06T19:41:01.351927] 300/1000 rows processed.
+INFO:root:[2023-04-06T19:43:38.596191] 400/1000 rows processed.
+INFO:root:[2023-04-06T19:46:25.245149] 500/1000 rows processed.
+INFO:root:[2023-04-06T19:49:16.289363] 600/1000 rows processed.
+INFO:root:[2023-04-06T19:51:56.171250] 700/1000 rows processed.
+INFO:root:[2023-04-06T19:54:57.750312] 800/1000 rows processed.
+INFO:root:[2023-04-06T19:58:00.499703] 900/1000 rows processed.
+INFO:root:[2023-04-06T20:00:38.173856] 1000/1000 rows processed.
+INFO:root:[2023-04-06T20:00:38.174856] Process finished.
+INFO:root:[2023-04-06T20:04:12.349414] Log started. Log file: data_augmentation_medicamentos_None.log
+INFO:root:[2023-04-06T20:04:12.356413] Data loaded.
+INFO:root:[2023-04-06T20:04:12.357413] Target file created.
+INFO:root:[2023-04-06T20:04:12.357413] Initialized variables.
+INFO:root:[2023-04-06T20:04:12.357413] Process started.
+INFO:root:[2023-04-06T20:07:49.159473] 100/46028 rows processed.
+INFO:root:[2023-04-06T20:11:00.664433] 200/46028 rows processed.
+INFO:root:[2023-04-06T20:13:56.389915] 300/46028 rows processed.
+INFO:root:[2023-04-06T20:19:43.705687] 400/46028 rows processed.
+INFO:root:[2023-04-06T20:26:47.873537] 500/46028 rows processed.
+INFO:root:[2023-04-06T20:32:39.228631] 600/46028 rows processed.
+INFO:root:[2023-04-06T20:39:05.729775] 700/46028 rows processed.
+INFO:root:[2023-04-06T20:45:55.921698] 800/46028 rows processed.
+INFO:root:[2023-04-06T20:52:52.342319] 900/46028 rows processed.
+INFO:root:[2023-04-06T20:59:46.864705] 1000/46028 rows processed.
+INFO:root:[2023-04-06T21:06:36.003691] 1100/46028 rows processed.
+INFO:root:[2023-04-06T21:13:28.166116] 1200/46028 rows processed.
+INFO:root:[2023-04-06T21:19:52.454234] 1300/46028 rows processed.
+INFO:root:[2023-04-06T21:25:31.731587] 1400/46028 rows processed.
+INFO:root:[2023-04-06T21:30:09.913587] 1500/46028 rows processed.
+INFO:root:[2023-04-06T21:34:12.504587] 1600/46028 rows processed.
+INFO:root:[2023-04-06T21:37:38.786587] 1700/46028 rows processed.
+INFO:root:[2023-04-06T21:40:56.592587] 1800/46028 rows processed.
+INFO:root:[2023-04-06T21:45:04.860586] 1900/46028 rows processed.
+INFO:root:[2023-04-06T21:49:32.795587] 2000/46028 rows processed.
+INFO:root:[2023-04-06T21:53:02.926587] 2100/46028 rows processed.
+INFO:root:[2023-04-06T21:56:31.367586] 2200/46028 rows processed.
+INFO:root:[2023-04-06T22:00:21.630693] 2300/46028 rows processed.
+INFO:root:[2023-04-06T22:03:23.621693] 2400/46028 rows processed.
+INFO:root:[2023-04-06T22:06:22.398692] 2500/46028 rows processed.
+INFO:root:[2023-04-06T22:09:16.665134] 2600/46028 rows processed.
+INFO:root:[2023-04-06T22:12:09.306135] 2700/46028 rows processed.
+INFO:root:[2023-04-06T22:15:05.896135] 2800/46028 rows processed.
+INFO:root:[2023-04-06T22:18:00.803997] 2900/46028 rows processed.
+INFO:root:[2023-04-06T22:20:58.442997] 3000/46028 rows processed.
+INFO:root:[2023-04-06T22:23:58.372997] 3100/46028 rows processed.
+INFO:root:[2023-04-06T22:26:55.545998] 3200/46028 rows processed.
+INFO:root:[2023-04-06T22:29:51.130000] 3300/46028 rows processed.
+INFO:root:[2023-04-06T22:32:46.259997] 3400/46028 rows processed.
+INFO:root:[2023-04-06T22:35:47.597997] 3500/46028 rows processed.
+INFO:root:[2023-04-06T22:38:41.694998] 3600/46028 rows processed.
+INFO:root:[2023-04-06T22:41:39.162968] 3700/46028 rows processed.
+INFO:root:[2023-04-06T22:44:33.061966] 3800/46028 rows processed.
+INFO:root:[2023-04-06T22:47:26.954968] 3900/46028 rows processed.
+INFO:root:[2023-04-06T22:50:25.945965] 4000/46028 rows processed.
+INFO:root:[2023-04-06T22:53:19.838965] 4100/46028 rows processed.
+INFO:root:[2023-04-06T22:56:24.247966] 4200/46028 rows processed.
+INFO:root:[2023-04-06T22:59:24.816968] 4300/46028 rows processed.
+INFO:root:[2023-04-06T23:02:23.231559] 4400/46028 rows processed.
+INFO:root:[2023-04-06T23:05:20.098782] 4500/46028 rows processed.
+INFO:root:[2023-04-06T23:08:13.511781] 4600/46028 rows processed.
+INFO:root:[2023-04-06T23:11:10.410703] 4700/46028 rows processed.
+INFO:root:[2023-04-06T23:14:07.513148] 4800/46028 rows processed.
+INFO:root:[2023-04-06T23:17:05.209148] 4900/46028 rows processed.
+INFO:root:[2023-04-06T23:19:57.938147] 5000/46028 rows processed.
+INFO:root:[2023-04-06T23:22:49.081516] 5100/46028 rows processed.
+INFO:root:[2023-04-06T23:25:37.752516] 5200/46028 rows processed.
+INFO:root:[2023-04-06T23:28:29.289017] 5300/46028 rows processed.
+INFO:root:[2023-04-06T23:31:24.175448] 5400/46028 rows processed.
+INFO:root:[2023-04-06T23:34:16.396691] 5500/46028 rows processed.
+INFO:root:[2023-04-06T23:37:08.024908] 5600/46028 rows processed.
+INFO:root:[2023-04-06T23:39:57.990909] 5700/46028 rows processed.
+INFO:root:[2023-04-06T23:42:48.107908] 5800/46028 rows processed.
+INFO:root:[2023-04-06T23:45:38.608907] 5900/46028 rows processed.
+INFO:root:[2023-04-06T23:48:30.622908] 6000/46028 rows processed.
+INFO:root:[2023-04-06T23:51:18.453269] 6100/46028 rows processed.
+INFO:root:[2023-04-06T23:54:06.687270] 6200/46028 rows processed.
+INFO:root:[2023-04-06T23:56:55.648424] 6300/46028 rows processed.
+INFO:root:[2023-04-06T23:59:43.346425] 6400/46028 rows processed.
+INFO:root:[2023-04-07T00:02:34.444227] 6500/46028 rows processed.
+INFO:root:[2023-04-07T00:05:27.473137] 6600/46028 rows processed.
+INFO:root:[2023-04-07T00:08:16.373118] 6700/46028 rows processed.
+INFO:root:[2023-04-07T00:11:06.303121] 6800/46028 rows processed.
+INFO:root:[2023-04-07T00:13:50.068118] 6900/46028 rows processed.
+INFO:root:[2023-04-07T00:16:37.178121] 7000/46028 rows processed.
+INFO:root:[2023-04-07T00:19:27.726120] 7100/46028 rows processed.
+INFO:root:[2023-04-07T00:22:17.074120] 7200/46028 rows processed.
+INFO:root:[2023-04-07T00:25:01.818118] 7300/46028 rows processed.
+INFO:root:[2023-04-07T00:27:43.192121] 7400/46028 rows processed.
+INFO:root:[2023-04-07T00:30:33.141121] 7500/46028 rows processed.
+INFO:root:[2023-04-07T03:31:36.579481] Log started. Log file: data_augmentation_medicamentos_None.log
+INFO:root:[2023-04-07T03:31:36.592480] Data loaded.
+INFO:root:[2023-04-07T03:31:36.593480] Target file created.
+INFO:root:[2023-04-07T03:31:36.593480] Initialized variables.
+INFO:root:[2023-04-07T03:31:36.593480] Process started.
+INFO:root:[2023-04-07T03:32:54.345479] 100/46028 rows processed.
+INFO:root:[2023-04-07T03:41:33.075125] Log started. Log file: data_augmentation_medicamentos_None.log
+INFO:root:[2023-04-07T03:41:33.083125] Data loaded.
+INFO:root:[2023-04-07T03:41:33.084130] Target file created.
+INFO:root:[2023-04-07T03:41:33.084130] Initialized variables.
+INFO:root:[2023-04-07T03:41:33.084130] Process started.
+INFO:root:[2023-04-07T03:43:04.137311] 100/46028 rows processed.
+INFO:root:[2023-04-07T03:44:09.950586] 200/46028 rows processed.
+INFO:root:[2023-04-07T03:45:29.678142] 300/46028 rows processed.
+INFO:root:[2023-04-07T03:47:15.925625] 400/46028 rows processed.
+INFO:root:[2023-04-07T03:50:04.646625] 500/46028 rows processed.
+INFO:root:[2023-04-07T03:52:46.716625] 600/46028 rows processed.
+INFO:root:[2023-04-07T03:55:36.855623] 700/46028 rows processed.
+INFO:root:[2023-04-07T03:58:24.455053] 800/46028 rows processed.
+INFO:root:[2023-04-07T04:01:14.208051] 900/46028 rows processed.
+INFO:root:[2023-04-07T04:04:03.648220] 1000/46028 rows processed.
+INFO:root:[2023-04-07T04:06:54.422599] 1100/46028 rows processed.
+INFO:root:[2023-04-07T04:09:41.564598] 1200/46028 rows processed.
+INFO:root:[2023-04-07T04:12:31.188596] 1300/46028 rows processed.
+INFO:root:[2023-04-07T04:15:16.945923] 1400/46028 rows processed.
+INFO:root:[2023-04-07T04:18:13.596496] 1500/46028 rows processed.
+INFO:root:[2023-04-07T04:21:12.538875] 1600/46028 rows processed.
+INFO:root:[2023-04-07T04:24:04.219330] 1700/46028 rows processed.
+INFO:root:[2023-04-07T04:26:55.352844] 1800/46028 rows processed.
+INFO:root:[2023-04-07T04:29:51.280778] 1900/46028 rows processed.
+INFO:root:[2023-04-07T04:32:42.806178] 2000/46028 rows processed.
+INFO:root:[2023-04-07T04:35:32.127708] 2100/46028 rows processed.
+INFO:root:[2023-04-07T04:38:21.220202] 2200/46028 rows processed.
+INFO:root:[2023-04-07T04:41:10.507428] 2300/46028 rows processed.
+INFO:root:[2023-04-07T04:43:58.058661] 2400/46028 rows processed.
+INFO:root:[2023-04-07T04:46:43.204696] 2500/46028 rows processed.
+INFO:root:[2023-04-07T04:49:32.238694] 2600/46028 rows processed.
+INFO:root:[2023-04-07T04:52:20.434100] 2700/46028 rows processed.
+INFO:root:[2023-04-07T04:55:11.415663] 2800/46028 rows processed.
+INFO:root:[2023-04-07T04:57:59.333664] 2900/46028 rows processed.
+INFO:root:[2023-04-07T05:00:47.446664] 3000/46028 rows processed.
+INFO:root:[2023-04-07T05:03:33.681665] 3100/46028 rows processed.
+INFO:root:[2023-04-07T05:06:25.224662] 3200/46028 rows processed.
+INFO:root:[2023-04-07T05:09:13.223662] 3300/46028 rows processed.
+INFO:root:[2023-04-07T05:12:00.613664] 3400/46028 rows processed.
+INFO:root:[2023-04-07T05:14:51.091663] 3500/46028 rows processed.
+INFO:root:[2023-04-07T05:17:41.346054] 3600/46028 rows processed.
+INFO:root:[2023-04-07T05:20:32.111053] 3700/46028 rows processed.
+INFO:root:[2023-04-07T05:23:17.416053] 3800/46028 rows processed.
+INFO:root:[2023-04-07T05:26:04.853731] 3900/46028 rows processed.
+INFO:root:[2023-04-07T05:28:53.527214] 4000/46028 rows processed.
+INFO:root:[2023-04-07T05:31:46.915214] 4100/46028 rows processed.
+INFO:root:[2023-04-07T05:34:48.121525] 4200/46028 rows processed.
+INFO:root:[2023-04-07T05:37:43.965071] 4300/46028 rows processed.
+INFO:root:[2023-04-07T05:40:41.319372] 4400/46028 rows processed.
+INFO:root:[2023-04-07T05:43:31.699373] 4500/46028 rows processed.
+INFO:root:[2023-04-07T05:46:21.203334] 4600/46028 rows processed.
+INFO:root:[2023-04-07T05:49:10.854335] 4700/46028 rows processed.
+INFO:root:[2023-04-07T05:52:01.434335] 4800/46028 rows processed.
+INFO:root:[2023-04-07T05:54:53.973335] 4900/46028 rows processed.
+INFO:root:[2023-04-07T05:57:47.630335] 5000/46028 rows processed.
+INFO:root:[2023-04-07T06:00:39.514803] 5100/46028 rows processed.
+INFO:root:[2023-04-07T06:03:29.320805] 5200/46028 rows processed.
+INFO:root:[2023-04-07T06:06:19.539967] 5300/46028 rows processed.
+INFO:root:[2023-04-07T06:09:09.581176] 5400/46028 rows processed.
+INFO:root:[2023-04-07T06:11:57.676412] 5500/46028 rows processed.
+INFO:root:[2023-04-07T06:14:47.549489] 5600/46028 rows processed.
+INFO:root:[2023-04-07T06:17:33.255480] 5700/46028 rows processed.
+INFO:root:[2023-04-07T06:20:20.659052] 5800/46028 rows processed.
+INFO:root:[2023-04-07T06:23:11.391053] 5900/46028 rows processed.
+INFO:root:[2023-04-07T06:26:00.357052] 6000/46028 rows processed.
+INFO:root:[2023-04-07T06:28:49.711051] 6100/46028 rows processed.
+INFO:root:[2023-04-07T06:31:39.369053] 6200/46028 rows processed.
+INFO:root:[2023-04-07T06:34:31.751050] 6300/46028 rows processed.
+INFO:root:[2023-04-07T06:37:18.920050] 6400/46028 rows processed.
+INFO:root:[2023-04-07T06:40:06.575711] 6500/46028 rows processed.
+INFO:root:[2023-04-07T06:42:59.599911] 6600/46028 rows processed.
+INFO:root:[2023-04-07T06:45:50.286911] 6700/46028 rows processed.
+INFO:root:[2023-04-07T06:48:37.996938] 6800/46028 rows processed.
+INFO:root:[2023-04-07T06:51:25.482306] 6900/46028 rows processed.
+INFO:root:[2023-04-07T06:54:15.853305] 7000/46028 rows processed.
+INFO:root:[2023-04-07T06:57:07.733304] 7100/46028 rows processed.
+INFO:root:[2023-04-07T06:59:58.211305] 7200/46028 rows processed.
+INFO:root:[2023-04-07T07:02:47.856304] 7300/46028 rows processed.
+INFO:root:[2023-04-07T20:03:34.995127] Log started. Log file: data_augmentation_medicamentos_None.log
+INFO:root:[2023-04-07T20:03:35.008125] Data loaded.
+INFO:root:[2023-04-07T20:03:35.010125] Target file created.
+INFO:root:[2023-04-07T20:03:35.010125] Initialized variables.
+INFO:root:[2023-04-07T20:03:35.010125] Process started.
+INFO:root:[2023-04-07T20:05:12.053141] 100/46028 rows processed.
+INFO:root:[2023-04-07T20:06:36.637736] 200/46028 rows processed.
+INFO:root:[2023-04-07T20:07:56.491738] 300/46028 rows processed.
+INFO:root:[2023-04-07T20:09:17.694735] 400/46028 rows processed.
+INFO:root:[2023-04-07T20:10:54.572773] 500/46028 rows processed.
+INFO:root:[2023-04-07T20:13:57.344786] 600/46028 rows processed.
