@@ -12,9 +12,6 @@ import pdb
 import unittest
 import numpy as np
 
-#agora vai
-init_pre_processamento.run()
-
 app = FastAPI(debug=True)
 
 #rota de importação do csv. estudando como fazer para upload em csv maior
