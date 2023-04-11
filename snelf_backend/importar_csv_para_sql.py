@@ -146,7 +146,7 @@ def get_transactions_from_product(busca):
 
     sql_table_creation = f"""select t.*
                             from transactions t
-                            where t.descricaoproduto like '%{busca}%'"""
+                            where LOWER(t.descricaoproduto) like LOWER('%{busca}%')"""
 
     db.cursor.execute(sql_table_creation)
 
