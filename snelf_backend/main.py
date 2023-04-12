@@ -3,7 +3,7 @@ from fastapi import Body, FastAPI, File, UploadFile, Query, Request
 from fastapi.middleware import Middleware
 # from starlette.middleware.cors import CORSMiddleware
 from fastapi.middleware.cors import CORSMiddleware
-
+import os
 from _pre_processamento import init_pre_processamento
 from pre_processamento import inicia_pre_processamento
 import fasttext 
@@ -50,8 +50,8 @@ async def consultaGrupo(busca: str = Body(...)):
         array_from_prediction = get_medicines_from_label(label)
         # transactions = array_from_product + array_from_prediction[0:100]
 
-        print(label)
-        print(transactions)
+        # print(label)
+        # print(transactions)
         return { 'medicines': transactions }
 
     except Exception as e:
@@ -89,6 +89,17 @@ async def importarTransacoes(csvFile: UploadFile = File(...)):
     else:
         raise HTTPException(status_code=422, detail="Formato de arquivo não suportado")
 
+
+@app.post("/iniciar-pre-processamento")
+async def iniciarPreProcessamento():
+    try:
+        localDir = os.path.dirname(os.path.abspath(__file__))
+        os.chdir(localDir + "\\_pre_processamento")
+        init_pre_processamento.run()
+        os.chdir(localDir)
+    except Exception as ex:
+        os.chdir(localDir)
+        raise HTTPException(status_code=422, detail=ex)
 
 
 

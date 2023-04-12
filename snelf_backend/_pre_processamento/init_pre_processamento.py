@@ -1,17 +1,14 @@
-import os
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
-import pre_proc_anvisa
-import pre_proc_medicamentos
-from _data_augmentation import init_data_augmentation
-from _move_file import move_file
-import pre_proc_anvisa_augmented
-import pre_proc_medicamentos_augmented
-import mapeamento_ean_chave
-from _oversampling import oversampling
-from _training import train_test_split
-import _log_debug.logger as logger
-
 def run():
+    import pre_proc_anvisa
+    from _data_augmentation import init_data_augmentation
+    from _move_file import move_file
+    import pre_proc_anvisa_augmented
+    import pre_proc_medicamentos_augmented
+    import mapeamento_ean_chave
+    from _oversampling import oversampling
+    from _training import train_test_split
+    import _log_debug.logger as logger
+
     logger.erase()
 
     # PRE PROCESSAMENTO 1
@@ -53,5 +50,3 @@ def run():
     logger.log("train_test_split iniciado")
     train_test_split.run()
     logger.log("train_test_split finalizado")
-
-run()
