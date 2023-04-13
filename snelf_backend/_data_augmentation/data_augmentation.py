@@ -55,7 +55,10 @@ def write_data(target_file, data):
 
 def extract_terms_medicamentos(extract_args):
     row, _ = extract_args
-    print("[" + datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S") + "] MEDICAMENTOS | " + row.rstrip('\n'))
+
+    rowPrint = str(row.encode('utf-8'))
+
+    print("[" + datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S") + "] MEDICAMENTOS | " + rowPrint.rstrip('\n'))
     descricao, ean = row.rstrip('\n').split(';')
     termos_desc = [t for t in descricao.split() if len(t) > 2]
     return ean, descricao, termos_desc
@@ -63,7 +66,10 @@ def extract_terms_medicamentos(extract_args):
 
 def extract_terms_anvisa(extract_args):
     row, use_col = extract_args
-    print("[" + datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S") + "] ANVISA | " + row.rstrip('\n'))
+
+    rowPrint = str(row.encode('utf-8'))
+
+    print("[" + datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S") + "] ANVISA | " + rowPrint.rstrip('\n'))
     ean, produto, apresentacao, principio_ativo = row.rstrip('\n').split(';')
     if use_col == 'produto':
         col = produto

@@ -13,7 +13,7 @@ def run():
 
     """### Loading"""
 
-    data_path = '../datasets/medicamentos/'
+    data_path = 'datasets/medicamentos/'
     data_file = 'produtos_farmaceuticos.csv'
 
     cols = [81, 83]

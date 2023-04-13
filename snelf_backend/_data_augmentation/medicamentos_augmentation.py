@@ -4,8 +4,8 @@ from _data_augmentation.Args import Args
 
 def run():
     data_augmentation.run(Args(
-        src_file="../datasets/medicamentos/medicamentos.csv",
-        target_file="../datasets/medicamentos/medicamentos_aumentado.csv",
+        src_file="datasets/medicamentos/medicamentos.csv",
+        target_file="datasets/medicamentos/medicamentos_aumentado.csv",
         dataset_name="medicamentos",
         request_delay=2
     ))

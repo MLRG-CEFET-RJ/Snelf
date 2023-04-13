@@ -4,8 +4,8 @@ from _data_augmentation.Args import Args
 
 def run():
     data_augmentation.run(Args(
-        src_file="../datasets/anvisa/anvisa.csv",
-        target_file="../datasets/anvisa/anvisa_produto_aumentado.csv",
+        src_file="datasets/anvisa/anvisa.csv",
+        target_file="datasets/anvisa/anvisa_produto_aumentado.csv",
         dataset_name="anvisa",
         request_delay=5,
         use_col="produto"

@@ -31,6 +31,12 @@ services:
     depends_on:
       - snelf-postgres
 
+  fasttext:
+    build: ./snelf_backend/_model
+    container_name: fasttext
+    volumes:
+      - ./:/fasttext
+
   snelf-front:
     build: ./snelf_frontend
     container_name: snelf-front

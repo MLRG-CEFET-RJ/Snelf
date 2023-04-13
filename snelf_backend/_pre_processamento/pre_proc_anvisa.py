@@ -16,7 +16,7 @@ def run():
     import numpy as np
     import re
 
-    data_path = '../datasets/anvisa/'
+    data_path = 'datasets/anvisa/'
     data_file = 'TA_PRECOS_MEDICAMENTOS.csv'
 
     cols = [4, 5, 6, 8]

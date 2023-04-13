@@ -43,7 +43,7 @@ def run():
     """### Stopwords"""
 
     # loading new_stopwords
-    with open('custom_stopwords.txt') as f:
+    with open('_pre_processamento/custom_stopwords.txt') as f:
         data = f.read()
     new_stopwords = data.split()
 
@@ -90,7 +90,7 @@ def run():
 
     """### Path"""
 
-    data_path = '../datasets/anvisa/augmented/'
+    data_path = 'datasets/anvisa/augmented/'
     data_prod = 'anvisa_produto_aumentado.csv'
     data_pa = 'anvisa_principio_ativo_aumentado.csv'
 

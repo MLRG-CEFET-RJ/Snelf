@@ -5,9 +5,9 @@ from imblearn.over_sampling import RandomOverSampler
 
 def run():
 
-    data_medicamentos = '../datasets/medicamentos/augmented/medicamentos_aumentado_preproc_mapped.csv'
-    data_anvisa_prod = '../datasets/anvisa/augmented/anvisa_produto_aumentado_preproc_mapped.csv'
-    data_anvisa_pa = '../datasets/anvisa/augmented/anvisa_principio_ativo_aumentado_preproc_mapped.csv'
+    data_medicamentos = 'datasets/medicamentos/augmented/medicamentos_aumentado_preproc_mapped.csv'
+    data_anvisa_prod = 'datasets/anvisa/augmented/anvisa_produto_aumentado_preproc_mapped.csv'
+    data_anvisa_pa = 'datasets/anvisa/augmented/anvisa_principio_ativo_aumentado_preproc_mapped.csv'
 
     df_medicamentos = pd.read_csv(data_medicamentos, sep=';', dtype=str)
     df_anvisa_prod = pd.read_csv(data_anvisa_prod, sep=';', dtype=str)
@@ -28,7 +28,7 @@ def run():
     df_oversampled = pd.concat([X_resampled, y_resampled], axis=1)
     print('new shape:', df_oversampled.shape)
 
-    data_file = '../datasets/oversampled.csv'
+    data_file = 'datasets/oversampled.csv'
 
     print(f'saving file in {data_file}')
     df_oversampled.to_csv(data_file,

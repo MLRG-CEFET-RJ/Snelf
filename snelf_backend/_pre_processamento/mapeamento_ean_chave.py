@@ -10,14 +10,14 @@ def run():
 
     import pandas as pd
 
-    df_mapping = pd.read_pickle('../datasets/ean_key_mapping.pkl')
+    df_mapping = pd.read_pickle('datasets/ean_key_mapping.pkl')
     print(df_mapping.shape)
     df_mapping.head()
 
     """### Aplicando as substituições"""
 
-    medicamentos_data_path = '../datasets/medicamentos/augmented/'
-    anvisa_data_path = '../datasets/anvisa/augmented/'
+    medicamentos_data_path = 'datasets/medicamentos/augmented/'
+    anvisa_data_path = 'datasets/anvisa/augmented/'
 
     medicamentos_data_file = 'medicamentos_aumentado_preproc.csv'
     anvisa_pa_data_file = 'anvisa_principio_ativo_aumentado_preproc.csv'

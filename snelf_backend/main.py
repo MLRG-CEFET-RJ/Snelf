@@ -1,10 +1,11 @@
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 from http.client import HTTPException
 from fastapi import Body, FastAPI, File, UploadFile, Query, Request
 from fastapi.middleware import Middleware
 # from starlette.middleware.cors import CORSMiddleware
 from fastapi.middleware.cors import CORSMiddleware
-import os
-from _pre_processamento import init_pre_processamento
+from Treinamento import Treinamento
 from pre_processamento import inicia_pre_processamento
 import fasttext 
 from importar_csv_para_sql import fill_db_tables, insert_transactions, get_medicines_from_label, getTransactionsFromClean, get_transactions_from_product
@@ -13,6 +14,7 @@ import unittest
 import numpy as np
 
 app = FastAPI(debug=True)
+treinamento = Treinamento()
 
 #rota de importação do csv. estudando como fazer para upload em csv maior
 @app.post("/importarCsv")
@@ -90,15 +92,35 @@ async def importarTransacoes(csvFile: UploadFile = File(...)):
         raise HTTPException(status_code=422, detail="Formato de arquivo não suportado")
 
 
-@app.post("/iniciar-pre-processamento")
-async def iniciarPreProcessamento():
+@app.post("/treinar-modelo-de-verdade")
+async def treinarModeloDeVerdade():
+    localDir = os.path.dirname(os.path.abspath(__file__))
     try:
-        localDir = os.path.dirname(os.path.abspath(__file__))
-        os.chdir(localDir + "\\_pre_processamento")
-        init_pre_processamento.run()
-        os.chdir(localDir)
+        if not treinamento.estaEmTreinamento():
+            treinamento.iniciarTreinamento()
+            return "Treinamento iniciado"
+        else:
+            return "Já existe um treinamento em andamento"
+
     except Exception as ex:
         os.chdir(localDir)
+        raise HTTPException(status_code=422, detail=ex)
+
+
+@app.post("/parar-treinamento")
+async def pararTreinamento():
+    try:
+        treinamento.pararTreinamento()
+        return "Treinamento parado"
+
+    except Exception as ex:
+        raise HTTPException(status_code=422, detail=ex)
+
+@app.get("/obter-status-treinamento")
+async def obterStatusTreinamento():
+    try:
+        return treinamento.obterStatusTreinamento()
+    except Exception as ex:
         raise HTTPException(status_code=422, detail=ex)
 
 

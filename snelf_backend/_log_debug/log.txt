@@ -1,23 +1,20 @@
-[08/04/2023 09:56:31] pre_proc_anvisa iniciado
-[08/04/2023 09:56:34] pre_proc_anvisa finalizado
-[08/04/2023 09:56:34] init_data_augmentation iniciado
-[08/04/2023 09:56:34] init_data_augmentation --> medicamentos_augmentation iniciado
-[09/04/2023 10:27:07] init_data_augmentation --> medicamentos_augmentation finalizado
-[09/04/2023 10:27:07] init_data_augmentation --> anvisa_prod_augmentation iniciado
-[10/04/2023 14:20:00] init_data_augmentation --> anvisa_prod_augmentation finalizado
-[10/04/2023 14:20:00] init_data_augmentation --> anvisa_pa_augmentation iniciado
-[11/04/2023 17:44:52] init_data_augmentation --> anvisa_pa_augmentation finalizado
-[11/04/2023 17:44:52] init_data_augmentation finalizado
-[11/04/2023 17:44:52] move_file 1
-[11/04/2023 17:44:53] move_file 2
-[11/04/2023 17:44:53] move_file 3
-[11/04/2023 17:44:53] pre_proc_anvisa_augmented iniciado
-[11/04/2023 17:47:03] pre_proc_anvisa_augmented finalizado
-[11/04/2023 17:47:03] pre_proc_medicamentos_augmented iniciado
-[11/04/2023 17:48:35] pre_proc_medicamentos_augmented finalizado
-[11/04/2023 17:48:35] mapeamento_ean_chave iniciado
-[11/04/2023 17:48:36] mapeamento_ean_chave finalziado
-[11/04/2023 17:48:36] oversampling iniciado
-[11/04/2023 17:49:07] oversampling finalizado
-[11/04/2023 17:49:07] train_test_split iniciado
-[11/04/2023 17:49:14] train_test_split finalizado
+[13/04/2023 04:52:15] pre_proc_anvisa iniciado
+[13/04/2023 04:52:17] pre_proc_anvisa finalizado
+[13/04/2023 04:52:17] init_data_augmentation iniciado
+[13/04/2023 04:52:17] init_data_augmentation --> medicamentos_augmentation iniciado
+[13/04/2023 04:52:19] init_data_augmentation --> medicamentos_augmentation finalizado
+[13/04/2023 04:52:19] init_data_augmentation --> anvisa_prod_augmentation iniciado
+[13/04/2023 04:52:22] init_data_augmentation --> anvisa_prod_augmentation finalizado
+[13/04/2023 04:52:22] init_data_augmentation --> anvisa_pa_augmentation iniciado
+[13/04/2023 04:52:25] init_data_augmentation --> anvisa_pa_augmentation finalizado
+[13/04/2023 04:52:25] init_data_augmentation finalizado
+[13/04/2023 04:52:25] move_file 1
+[13/04/2023 04:52:25] move_file 2
+[13/04/2023 04:52:25] move_file 3
+[13/04/2023 04:52:25] pre_proc_anvisa_augmented iniciado
+[13/04/2023 04:53:06] pre_proc_anvisa_augmented finalizado
+[13/04/2023 04:53:06] pre_proc_medicamentos_augmented iniciado
+[13/04/2023 04:53:24] pre_proc_medicamentos_augmented finalizado
+[13/04/2023 04:53:24] mapeamento_ean_chave iniciado
+[13/04/2023 04:53:24] mapeamento_ean_chave finalziado
+[13/04/2023 04:53:24] oversampling iniciado
