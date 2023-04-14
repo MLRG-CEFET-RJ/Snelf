@@ -25,6 +25,8 @@ async def importarCsv(csvFile: UploadFile = File(...)):
         #aqui seria a chamada para a api do modelo, iniciando o pré processamento
         await inicia_pre_processamento(csvFile)
         fasttext.supervised('dados/data.train.txt','modelo/modelo')
+
+        print("Arquivo recebido na API de importação")
         return {"filename": csvFile.filename, "status":"Arquivo recebido na API de importação"}
     else:
         raise HTTPException(status_code=422, detail="Formato de arquivo não suportado")
@@ -83,10 +85,14 @@ async def consultaClean(busca: str = Body(...)):
 async def root():
     return "Teste executado com sucesso."
 
+
+#tá executando esse aqui na importação do csv
 @app.post("/importarTransacoes")
 async def importarTransacoes(csvFile: UploadFile = File(...)):
     if csvFile.filename.endswith('.csv'):
         insert_transactions(csvFile)
+
+        print("Arquivo importado com sucesso.")
         return {"filename": csvFile.filename, "status":"Arquivo importado com sucesso."}
     else:
         raise HTTPException(status_code=422, detail="Formato de arquivo não suportado")

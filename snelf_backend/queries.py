@@ -25,6 +25,7 @@ def insert_produtos():
     for transaction in medicine_transactions_consulted:
         transaction = list(transaction)
         transaction[0] = transaction[0].replace('\'','')
+        print(transaction[0])
         transaction[1] = transaction[1].replace('\'','')
         transaction = tuple(transaction)
         inputProductsArray.append((str(transaction[1]), str(transaction[0])))
