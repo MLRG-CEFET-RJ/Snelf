@@ -9,44 +9,54 @@ def run():
     from _training import train_test_split
     import _log_debug.logger as logger
 
-    logger.erase()
-
     # PRE PROCESSAMENTO 1
-    logger.log("pre_proc_anvisa iniciado")
-    pre_proc_anvisa.run()
-    logger.log("pre_proc_anvisa finalizado")
-    # pre_proc_medicamentos.run()
+    if (logger.lastLine() == None or "" == logger.lastLine()) or ("pre_proc_anvisa iniciado" in logger.lastLine()):
+        logger.erase()
+
+        logger.log("pre_proc_anvisa iniciado")
+        pre_proc_anvisa.run()
+        logger.log("pre_proc_anvisa finalizado")
+    
 
     # DATA AUGMENTATION
-    logger.log("init_data_augmentation iniciado")
-    init_data_augmentation.run()
-    logger.log("init_data_augmentation finalizado")
+    if ("pre_proc_anvisa finalizado" in logger.lastLine()) or ("init_data_augmentation iniciado" in logger.lastLine()):
+        logger.log("init_data_augmentation iniciado")
+        init_data_augmentation.run()
+        logger.log("init_data_augmentation finalizado")
 
     # MOVE FILES
-    move_file.move("datasets/medicamentos/medicamentos_aumentado.csv", "datasets/medicamentos/augmented/medicamentos_aumentado.csv")
-    logger.log("move_file 1")
-    move_file.move("datasets/anvisa/anvisa_principio_ativo_aumentado.csv", "datasets/anvisa/augmented/anvisa_principio_ativo_aumentado.csv")
-    logger.log("move_file 2")
-    move_file.move("datasets/anvisa/anvisa_produto_aumentado.csv", "datasets/anvisa/augmented/anvisa_produto_aumentado.csv")
-    logger.log("move_file 3")
+    if ("pre_proc_anvisa finalizado" in logger.lastLine()):
+        move_file.move("datasets/medicamentos/medicamentos_aumentado.csv", "datasets/medicamentos/augmented/medicamentos_aumentado.csv")
+        logger.log("move_file 1")
+        move_file.move("datasets/anvisa/anvisa_principio_ativo_aumentado.csv", "datasets/anvisa/augmented/anvisa_principio_ativo_aumentado.csv")
+        logger.log("move_file 2")
+        move_file.move("datasets/anvisa/anvisa_produto_aumentado.csv", "datasets/anvisa/augmented/anvisa_produto_aumentado.csv")
+        logger.log("move_file 3")
 
     # PRE PROCESSAMENTO 2
-    logger.log("pre_proc_anvisa_augmented iniciado")
-    pre_proc_anvisa_augmented.run()
-    logger.log("pre_proc_anvisa_augmented finalizado")
-    logger.log("pre_proc_medicamentos_augmented iniciado")
-    pre_proc_medicamentos_augmented.run()
-    logger.log("pre_proc_medicamentos_augmented finalizado")
-    logger.log("mapeamento_ean_chave iniciado")
-    mapeamento_ean_chave.run()
-    logger.log("mapeamento_ean_chave finalziado")
+    if ("move_file 3" in logger.lastLine()) or ("pre_proc_anvisa_augmented iniciado" in logger.lastLine()):
+        logger.log("pre_proc_anvisa_augmented iniciado")
+        pre_proc_anvisa_augmented.run()
+        logger.log("pre_proc_anvisa_augmented finalizado")
+
+    if ("pre_proc_anvisa_augmented finalizado" in logger.lastLine()) or ("pre_proc_medicamentos_augmented iniciado" in logger.lastLine()):
+        logger.log("pre_proc_medicamentos_augmented iniciado")
+        pre_proc_medicamentos_augmented.run()
+        logger.log("pre_proc_medicamentos_augmented finalizado")
+
+    if ("pre_proc_medicamentos_augmented finalizado" in logger.lastLine()) or ("mapeamento_ean_chave iniciado" in logger.lastLine()):
+        logger.log("mapeamento_ean_chave iniciado")
+        mapeamento_ean_chave.run()
+        logger.log("mapeamento_ean_chave finalziado")
 
     # OVERSAMPLING
-    logger.log("oversampling iniciado")
-    oversampling.run()
-    logger.log("oversampling finalizado")
+    if ("mapeamento_ean_chave finalziado" in logger.lastLine()) or ("oversampling iniciado" in logger.lastLine()):
+        logger.log("oversampling iniciado")
+        oversampling.run()
+        logger.log("oversampling finalizado")
 
     # TRAINING
-    logger.log("train_test_split iniciado")
-    train_test_split.run()
-    logger.log("train_test_split finalizado")
+    if ("oversampling finalizado" in logger.lastLine()) or ("train_test_split iniciado" in logger.lastLine()):
+        logger.log("train_test_split iniciado")
+        train_test_split.run()
+        logger.log("train_test_split finalizado")
