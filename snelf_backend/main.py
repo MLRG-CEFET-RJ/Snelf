@@ -97,6 +97,7 @@ async def importarTransacoes(csvFile: UploadFile = File(...)):
     else:
         raise HTTPException(status_code=422, detail="Formato de arquivo não suportado")
 
+historico_status = []
 
 @app.post("/treinar-modelo-de-verdade")
 async def treinarModeloDeVerdade():
@@ -104,6 +105,7 @@ async def treinarModeloDeVerdade():
     try:
         if not treinamento.estaEmTreinamento():
             treinamento.iniciarTreinamento()
+            #print(historico_status)
             return "Treinamento iniciado"
         else:
             return "Já existe um treinamento em andamento"
@@ -122,13 +124,15 @@ async def pararTreinamento():
     except Exception as ex:
         raise HTTPException(status_code=422, detail=ex)
 
+
+
 @app.get("/obter-status-treinamento")
 async def obterStatusTreinamento():
     try:
-        return treinamento.obterStatusTreinamento()
+        #historico_status.append(treinamento.obterStatusTreinamento())
+        return treinamento.obterStatusTreinamento()  #concatenar as linhas de "log.txt - preprocessamento" com "model.txt - treinamento" e trazer tudo pra cá e lutar para mostrar isto no front bonitinho
     except Exception as ex:
         raise HTTPException(status_code=422, detail=ex)
-
 
 
 #burlando cors

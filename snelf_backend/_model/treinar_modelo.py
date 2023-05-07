@@ -10,6 +10,7 @@ def pararTreinamentoModelo():
     with open('_model/treinador.log', 'w') as f:
         subprocess.Popen(['docker', 'stop', 'treinador'], stdout=f, stderr=f)
 
+        #aguarda o processo terminar, ou seja, enquanto não tiver linhas escritas ele confere. Faz isso até que seja escrita pelo menos uma linha no código. 
         with open('_model/treinador.log', 'r') as f2:
             while len(f2.readlines()) == 0:
                 f2 = open('_model/treinador.log', 'r')

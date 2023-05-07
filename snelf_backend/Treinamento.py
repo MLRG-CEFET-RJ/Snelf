@@ -27,7 +27,7 @@ class Treinamento:
     def estaEmTreinamento(self) -> bool:
         return len(_ThreadTreinamento.instancias_ativas) > 0
 
-    def obterStatusTreinamento(self) -> str:
+    def obterStatusTreinamento(self): #-> str
         status = "O modelo não está treinado."
 
         running = "[RUNNING] " if self.estaEmTreinamento() else "[STOPPED] "
@@ -36,7 +36,7 @@ class Treinamento:
         if statusPreProcessamento is not None:
             status = running + statusPreProcessamento
 
-            if 'train_test_split finalizado' in statusPreProcessamento:
+            if 'train_test_split finalizado' in statusPreProcessamento: #pre processamento acabou
                 statusTreinamentoModelo = self._obterStatusTreinamentoModelo()
                 if statusTreinamentoModelo is not None:
                     status = running + statusTreinamentoModelo
@@ -50,7 +50,7 @@ class Treinamento:
                 linhas = f.readlines()
                 if len(linhas) > 0:
                     linhas.reverse()
-                    return linhas[0].strip("\n")
+                    return linhas[0].strip("\n")   
                 else:
                     return None
         else:
@@ -86,7 +86,7 @@ class _ThreadTreinamento(threading.Thread):
 
     def run(self):
         try:
-            localDir = str(os.path.dirname(os.path.abspath(__file__)))
+            localDir = str(os.path.dirname(os.path.abspath(__file__))) #fazer o projeto reconhecer o módulo em que está esse código.
             init_pre_processamento.run()
             treinar_modelo.run(localDir)
             _ThreadTreinamento.instancias_ativas.remove(self)

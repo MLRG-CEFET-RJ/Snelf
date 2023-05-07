@@ -15,7 +15,7 @@ def run():
     logger.log("pre_proc_anvisa iniciado")
     pre_proc_anvisa.run()
     logger.log("pre_proc_anvisa finalizado")
-    # pre_proc_medicamentos.run()
+    #pre_proc_medicamentos.run()
 
     # DATA AUGMENTATION
     logger.log("init_data_augmentation iniciado")
