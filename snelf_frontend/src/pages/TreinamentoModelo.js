@@ -14,22 +14,24 @@ export default function TreinamentoModelo() {
     
     const [resultMessage, setResultMessage] = React.useState();
     const [isLoading, setIsLoading] = React.useState(false);
-    const [status, setStatus] = useState(null);
+    //const [status, setStatus] = useState(null);
     
+    const [statusList, setStatusList] = useState([]);
+
     const getStatus = async () => {
-            fetch(TREINAMENTO_ENDPOINT_STATUS, {
-                method: "GET",
-            })
-            .then(response => response.json())
-            .then(data => setStatus(data))
-            .catch(error => console.error(error));
+        try {
+            const response = await fetch(TREINAMENTO_ENDPOINT_STATUS);
+            const data = await response.json();
+            setStatusList(prevList => [...prevList, data]);
+        } catch (error) {
+            console.error(error);
         }
+    };
     
-        useEffect(() => {
-        const intervalId = setInterval(() => getStatus(), 5000); // chamada à API a cada 5 segundos
-    
+    useEffect(() => {
+        const intervalId = setInterval(getStatus, 5000); // chamada à API a cada 5 segundos
         return () => clearInterval(intervalId); // limpa o intervalo ao desmontar o componente
-        }, []);
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -60,14 +62,7 @@ export default function TreinamentoModelo() {
             <Navbar />
             {isLoading ? (<LoadingSpinner /> ) : 
             (<Box p={{ xs: 8, sm: 6, md: 9 }} height='80vh' width='80vh' m="auto">
-                {resultMessage}
-                <Box pb={5}>
-                {status && (
-                <div style={{ borderRadius: "10px", padding: "10px", backgroundColor: "#B0C4DE" }}>
-                     Status: {status}
-                </div>
-                )}
-                        <Grid
+                    <Grid
                         container
                         spacing={0}
                         direction="column"
@@ -91,11 +86,25 @@ export default function TreinamentoModelo() {
                         <Box pt={7}>
                             <Grid item>
                                 <Button component={Link} to={"/"} onClick={handleSubmit} disabled={isLoading} variant="contained">
-                                    Treinar Modelo
+                                    Treinar Modelo 
                                 </Button>
                             </Grid>
                         </Box>
                     </Grid>
+                    <br></br><br></br>
+
+                {resultMessage}
+
+                <Box pb={5}>
+                {statusList.length > 0 && (
+                        <div style={{ borderRadius: "10px", padding: "10px", backgroundColor: "#B0C4DE" }}>
+                            <Typography variant="h6">Status:</Typography>
+                            {statusList.slice(-3).map((status, index) => (
+                                <Typography key={index} variant="body1">{status}</Typography>
+                            ))}
+                        </div>
+                    )}
+                        
                 </Box>
             </Box>
             )}
