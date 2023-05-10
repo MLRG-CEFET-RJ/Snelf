@@ -99,11 +99,11 @@ async def importarTransacoes(csvFile: UploadFile = File(...)):
 
 
 @app.post("/treinar-modelo-de-verdade")
-async def treinarModeloDeVerdade():
+async def treinarModeloDeVerdade(forceRestart: bool = False):
     localDir = os.path.dirname(os.path.abspath(__file__))
     try:
         if not treinamento.estaEmTreinamento():
-            treinamento.iniciarTreinamento()
+            treinamento.iniciarTreinamento(forceRestart)
             return "Treinamento iniciado"
         else:
             return "Já existe um treinamento em andamento"

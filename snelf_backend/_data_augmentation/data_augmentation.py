@@ -3,6 +3,8 @@ from _data_augmentation.Args import Args
 import argparse
 from _data_augmentation._log import register_log, init_log
 from _data_augmentation._google import googleSearch
+from _pre_processamento.controleDeTreinamento import ControleDeTreinamento
+
 
 def argument_parser():
     """A method to parse up command line parameters."""
@@ -148,6 +150,9 @@ def run(args: Args):
 
     # process
     while len(data) > 0:
+
+        if not ControleDeTreinamento.running:
+            break
 
         dez_linhas = data[:1]
 
