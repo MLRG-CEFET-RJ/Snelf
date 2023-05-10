@@ -16,7 +16,9 @@ def run():
     data_path = 'datasets/medicamentos/'
     data_file = 'produtos_farmaceuticos.csv'
 
-    cols = [81, 83]
+    #cols = [81, 83]
+    cols = ['DescricaoProduto','CLEAN'];
+
     df = pd.read_csv('{}{}'.format(data_path, data_file), usecols=cols, dtype={0: str, 1: int})
     print(df.shape)
     df.head(2)

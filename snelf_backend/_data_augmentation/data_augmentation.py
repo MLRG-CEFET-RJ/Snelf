@@ -143,7 +143,7 @@ def run(args: Args):
     register_log('Process started.', print_msg=True)
 
     data = data[1:]  # DESCARTA A PRIMEIRA LINHA POIS É CABEÇALHO
-    # data = data[:1000]
+    data = data[:1000]
 
     linhas_lidas = 0
     total_linhas = len(data)
