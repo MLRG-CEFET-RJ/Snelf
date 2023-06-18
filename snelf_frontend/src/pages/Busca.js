@@ -30,7 +30,7 @@ export default function Busca() {
         let formData = new FormData();
         formData.append("stringBusca", search);
         let chosenType = searchType == 'produto' ? CONSULTA_PRODUTO_ENDPOINT : CONSULTA_CLEAN_ENDPOINT;
-        debugger;
+        //debugger;
         await fetch(chosenType, {
             method: "POST",
             body: search
