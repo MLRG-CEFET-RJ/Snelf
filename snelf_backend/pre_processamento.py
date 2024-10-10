@@ -73,7 +73,7 @@ async def inicia_pre_processamento():
                "VA?L?\(.+\)\s*LO?T?\(.+\)|"
                "LO?T?\s*[0-9]+\s*VA?L?\s*[0-9]+"
                ")")
-    df['DescricaoProduto'] = df['DescricaoProduto'].str.split(pattern, 1).str[0].str.strip()
+    df['DescricaoProduto'] = df['DescricaoProduto'].str.split(pattern, n=1).str[0].str.strip()
     df.drop_duplicates(subset=['DescricaoProduto'], inplace=True)
 
     #Exportação
@@ -194,7 +194,7 @@ async def inicia_pre_processamento():
     df_removed = pd.DataFrame(removed, columns=['master_idx', 'removed_idx'])    
     df_grouped = df_removed.groupby('master_idx')['removed_idx'].apply(list).reset_index()
 
-    pd.set_option('display.max_colwidth', -1)
+    pd.set_option('display.max_colwidth', None)
     print('AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII')
     print(df_grouped)
     master, removed = df_grouped.loc[0].values
@@ -330,7 +330,7 @@ async def inicia_pre_processamento():
     df.drop(['cod', 'chave'], axis=1, inplace=True)
     df = df[['label', 'descricao']]
     # np.savetxt('./dados/data.train.txt', df, fmt='%s', encoding='utf-8')
-    np.savetxt('./dados/data.train.txt', df, fmt='%s')
+    np.savetxt(os.path.join(os.getcwd(), './dados/data.train.txt'), df, fmt='%s')
 
     #inserir condição para validar se ocorreu o pre processamento ou não
     return "Pré processamento feito com sucesso"

@@ -34,7 +34,7 @@ def run(diretorio):
     pararTreinamentoModelo()
 
     with open('_model/model.log', 'w') as f:
-        subprocess.Popen(['docker', 'run', '--rm', '-it', '--name', 'treinador', '-d', '-v', '{}:/home'.format(diretorio), 'snelf-fasttext', '/bin/bash', '-c', 'fasttext supervised -input datasets/data.train.txt -output _model/model -verbose 2 > _model/model.log 2>&1'], stdout=f, stderr=f)
+        subprocess.Popen(['docker', 'run', '--rm', '-it', '--name', 'treinador', '-d', '-v', '{}:/home'.format(diretorio), 'snelf-fasttext', '/bin/bash', '-c', 'fasttext supervised -input dados/data.train.txt -output _model/model -verbose 2 > _model/model.log 2>&1'], stdout=f, stderr=f)
 
         while True:
             time.sleep(3)

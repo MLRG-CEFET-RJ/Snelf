@@ -154,7 +154,7 @@ class _ThreadTreinamento(threading.Thread):
         try:
             localDir = str(os.path.dirname(os.path.abspath(__file__))) # fazer o projeto reconhecer o módulo em que está esse código.
             ControleDeTreinamento.running = True
-            init_pre_processamento.run(self.forceRestart)
+            #init_pre_processamento.run(self.forceRestart)
             if ControleDeTreinamento.running:
                 treinar_modelo.run(localDir)
             _ThreadTreinamento.instancias_ativas.remove(self)
