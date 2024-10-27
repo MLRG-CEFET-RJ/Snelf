@@ -35,8 +35,7 @@ Cabe ressaltar que, na pasta 'dumps do postgresql', existirão diversas versões
     Username: testejp
     Password: testejp
 ##### 8.3 Acessar o site
-    Acessar a página inicial do Snelf atráves da PORT gerada pelo docker (localhost:PORT).
-    Verificar o PORT na aba Containers -> snelf -> front, através do Docker Desktop
+    Acessar localhost:7767 para abrir a página inicial do Snelf.
 
 #### 9. Primeiro acesso ao sistema
 Caso seja seu primeiro acesso ao sistema, seguir todos os passos desta seção.
