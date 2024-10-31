@@ -2348,10 +2348,17 @@
   dependencies:
     "@types/react" "*"
 
+<<<<<<< HEAD
 "@types/react@*", "@types/react@^17.0.0 || ^18.0.0", "@types/react@^18.0.0":
   version "18.3.3"
   resolved "https://registry.npmjs.org/@types/react/-/react-18.3.3.tgz"
   integrity sha512-hti/R0pS0q1/xx+TsI73XIqk26eBsISZ2R0wUijXIngRK9R/e7Xw/cXVxQK7R5JjW+SV4zGcn5hXjudkN/pLIw==
+=======
+"@types/react@*", "@types/react@^17.0.0 || ^18.0.0", "@types/react@^18.3.12":
+  version "18.3.12"
+  resolved "https://registry.npmjs.org/@types/react/-/react-18.3.12.tgz"
+  integrity sha512-D2wOSq/d6Agt28q7rSI3jhU7G6aiuzljDGZ2hTZHIkrTLUI+AF3WMeKkEZ9nN2fkBAlcktT6vcZjDFiIhMYEQw==
+>>>>>>> a7d5be17b2176b1e73646c2833adc7271158e734
   dependencies:
     "@types/prop-types" "*"
     csstype "^3.0.2"

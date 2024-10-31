@@ -13,19 +13,19 @@ Cabe ressaltar que, na pasta 'dumps do postgresql', existirão diversas versões
 ## Como utilizar?
 
 ### Passos
-#### 1. Clonar o projeto em uma pasta de distribuição Linux
+#### 1. Clonar o repositório em uma pasta dentro de um WSL
 #### 2. Instalar o docker
     Acessar https://docs.docker.com/engine/install/ubuntu/ e seguir o passo-a-passo
 #### 3. Instalar o docker-compose
     Acessar https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04 e seguir o passo-a-passo
-#### 4. Acessar a pasta snelf, após a clonagem do projeto
+#### 4. Acessar a pasta snelf
     Digitar o comando 'cd snelf' e apertar a tecla Enter
-#### 5. Realizar o build do projeto, a partir do docker-compose.yml
+#### 5. Realizar o build das imagens do repositório (docker-compose.yml)
     sudo docker-compose build
-#### 6. Iniciar o projeto
-    sudo docker-compose start
-#### 7. Subir o projeto
+#### 6. Subir containers do repositório
     sudo docker-compose up
+#### 7. Iniciar o repositório
+    sudo docker-compose start
 #### 8. Configurar conexão com SGBD (sistema gerenciador de banco de dados)
 ##### 8.1 Baixar o DBeaver (sistema gerenciador de múltiplos tipos de bancos de dados)
 ##### 8.2 Criar uma nova conexão no DBeaver, com os seguintes dados:
@@ -34,11 +34,8 @@ Cabe ressaltar que, na pasta 'dumps do postgresql', existirão diversas versões
     Port: 5432
     Username: testejp
     Password: testejp
-##### 8.3 Criar arquivo .env
-    - Criar arquivo .env, na pasta snelf-frontend
-    - Criar a seguinte variável de ambiente: WDS_SOCKET_PORT=3001
-##### 8.4 Acessar o site
-    Acessar localhost:3001, de modo a acessar a página inicial do Snelf
+##### 8.3 Acessar o site
+    Acessar localhost:7767 para abrir a página inicial do Snelf.
 
 #### 9. Primeiro acesso ao sistema
 Caso seja seu primeiro acesso ao sistema, seguir todos os passos desta seção.
