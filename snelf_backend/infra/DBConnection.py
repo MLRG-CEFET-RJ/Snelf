@@ -1,4 +1,4 @@
-import psycopg2
+import psycopg2 # type: ignore
 
 class DBConnection:
     _self = None
@@ -9,11 +9,11 @@ class DBConnection:
         if cls._self is None:
             cls._self = super().__new__(cls)
 
-            database = "testejp"
-            user = "testejp"
-            password = "testejp"
-            host = "snelf-postgres"
-            port = "5432"
+            database = "postgres"
+            user = "postgres"
+            password = "123"
+            host = "localhost"
+            port = "5432" 
 
             def tryToConnect():
                 try:
