@@ -8,8 +8,6 @@ from servicos.fasttext import ManipuladorFasttext
 from servicos.medicamentos import MedicamentosServico
 from servicos.suprimentos import SuprimentosServico
 from fastapi.middleware.cors import CORSMiddleware
-import fasttext
-import os
 from http import HTTPStatus
 import uvicorn
 from treinamento import Treinamento
