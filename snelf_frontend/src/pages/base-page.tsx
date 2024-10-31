@@ -3,8 +3,10 @@ import { FlexContainer } from "../components/ui/flex-container"
 import { observer } from "mobx-react"
 import { useContext, useState } from "react"
 import { toJS } from "mobx"
+import { MedicinesService } from '../core/services/medicines.service'
 
 export const BasePage = observer(() => {
+    const mediceServiceInstance = new MedicinesService()
     const [isOpen, setIsOpen] = useState(false);
     const [file, setFile] = useState<File | undefined>(undefined);
 
@@ -15,6 +17,14 @@ export const BasePage = observer(() => {
         const file = event.target.files?.[0];
 
         if(file) setFile(file);
+    }
+
+    const importMedicines = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+
+        if(!file) return;
+
+        mediceServiceInstance.importMedicines(file)
     }
 
     return (
@@ -47,7 +57,7 @@ export const BasePage = observer(() => {
                     <input type="file" onChange={handleFileChange} />
                 </DialogContent>
                 <DialogActions>
-                    <Button variant="contained" onClick={() => console.log(123)}>IMPORTAR</Button>
+                    <Button variant="contained" onClick={importMedicines}>IMPORTAR</Button>
                 </DialogActions>
             </Dialog>
         </FlexContainer>

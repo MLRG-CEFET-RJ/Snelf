@@ -1,5 +1,10 @@
+import csv
+from io import BytesIO, StringIO
 from fastapi import FastAPI, File, UploadFile, HTTPException, Query
 from typing import Optional
+
+from fastapi.responses import StreamingResponse
+import pandas as pd
 from utils.files import ManipuladorDeArquivos
 from modelos.http_model import HttpResponse
 from importar_csv_para_sql import fill_db_tables, get_medicines_from_label, getTransactionsFromClean, get_transactions_from_product
@@ -8,16 +13,25 @@ from servicos.fasttext import ManipuladorFasttext
 from servicos.medicamentos import MedicamentosServico
 from servicos.suprimentos import SuprimentosServico
 from fastapi.middleware.cors import CORSMiddleware
-import fasttext
+<<<<<<< HEAD
+#import fasttext
 import os
+=======
+>>>>>>> 4fa41bd51f3335eb66163cc3218b3e48b943800c
 from http import HTTPStatus
 import uvicorn
-from treinamento import Treinamento
+from treinamento import Treinamento 
 
 app = FastAPI()
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
+    
+@app.get('/')
+async def home():
+    return {
+        'TESTE': 'TESTE'
+    }
 
 """
 O post abaixo é usado para iniciar ou retormar o treinamento
@@ -74,14 +88,32 @@ async def obter_status_treinamento():
 
 
 @app.post("/medicamentos/importar-csv-medicamentos")
-async def importar_csv_medicamentos(csvFile: UploadFile = File(None)):
-    try:
-        servico_medicamentos = MedicamentosServico()
-        await servico_medicamentos.preencher_tabelas_medicamentos(csvFile)
-        #await inicia_pre_processamento()
-        return {"texto": 'Arquivo importado com sucesso'}
-    except Exception as erro:
-        raise HTTPException(status_code=500, detail='Ocorreu um erro ao tentar importar o CSV de medicamentos')
+async def importar_csv_medicamentos(file: UploadFile = File(None)):
+    if file.content_type != 'text/csv':
+        raise HTTPException(status_code=400, detail="O arquivo deve ser um CSV")
+
+    # Lê o conteúdo do arquivo
+    content = await file.read()
+    # Converte para StringIO para leitura pelo módulo CSV
+    csv_file = StringIO(content.decode("utf-8"))
+    csv_reader = csv.reader(csv_file)
+
+    # Processa as linhas do CSV
+    for row in csv_reader:
+        # Substitua isso pelo seu processamento
+        print(row)
+
+    return {"filename": file.filename, "message": "CSV processado com sucesso"}
+    # try:
+    #     servico_medicamentos = MedicamentosServico()
+    #     content = await csvFile.file()
+    #     print(content)
+    #     await servico_medicamentos.preencher_tabelas_medicamentos(content)
+    #     await inicia_pre_processamento()
+    #     return {"texto": 'Arquivo importado com sucesso'}
+    # except Exception as erro:
+    #     print(csvFile)
+    #     raise HTTPException(status_code=500, detail='Ocorreu um erro ao tentar importar o CSV de medicamentos')
 
 @app.post("/suprimentos/importar-csv-suprimentos")
 async def importar_csv_suprimentos(csvFile: UploadFile = File(None)):
