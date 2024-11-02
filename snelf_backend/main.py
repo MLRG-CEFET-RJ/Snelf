@@ -13,11 +13,6 @@ from servicos.fasttext import ManipuladorFasttext
 from servicos.medicamentos import MedicamentosServico
 from servicos.suprimentos import SuprimentosServico
 from fastapi.middleware.cors import CORSMiddleware
-<<<<<<< HEAD
-#import fasttext
-import os
-=======
->>>>>>> 4fa41bd51f3335eb66163cc3218b3e48b943800c
 from http import HTTPStatus
 import uvicorn
 from treinamento import Treinamento 
@@ -89,6 +84,7 @@ async def obter_status_treinamento():
 
 @app.post("/medicamentos/importar-csv-medicamentos")
 async def importar_csv_medicamentos(file: UploadFile = File(None)):
+    print("chegou na funcao")
     if file.content_type != 'text/csv':
         raise HTTPException(status_code=400, detail="O arquivo deve ser um CSV")
 

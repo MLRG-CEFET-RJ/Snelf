@@ -14,12 +14,15 @@ export class MedicinesService {
         })
     }
 
-    async importMedicines(csvFile: File) {
+    async importMedicines(csvFile: any) {
+        console.log("chegou aqui", csvFile)
         const formData = new FormData();
         formData.append("file", csvFile);
         console.log(formData)
         try {
-            const response = await axios.post('http://127.0.0.1:8000/medicamentos/importar-csv-medicamentos', csvFile, {
+            const response = await this.axiosInstace.post(
+                'http://localhost:8000/medicamentos/importar-csv-medicamentos', 
+                formData, {
                 headers: {
                   "Content-Type": "multipart/form-data",
                 },

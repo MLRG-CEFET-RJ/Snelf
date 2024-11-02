@@ -16,7 +16,7 @@ import numpy as np
 from fastapi.openapi.utils import get_openapi
 import debugpy
 
-debugpy.listen(("0.0.0.0", 5678))  # Altere a porta para 5678 ou outra disponível
+ # Altere a porta para 5678 ou outra disponível
 print("Aguardando o depurador se conectar...")
 debugpy.wait_for_client()
 
