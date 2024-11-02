@@ -83,33 +83,22 @@ async def obter_status_treinamento():
 
 
 @app.post("/medicamentos/importar-csv-medicamentos")
-async def importar_csv_medicamentos(file: UploadFile = File(None)):
-    print("chegou na funcao")
-    if file.content_type != 'text/csv':
-        raise HTTPException(status_code=400, detail="O arquivo deve ser um CSV")
+async def importar_csv_medicamentos(csv_file: UploadFile = File(...)):
+    try:
+        if csv_file is None:
+            raise HTTPException(status_code=400, detail="Arquivo CSV não foi enviado.")
+        
+        servico_medicamentos = MedicamentosServico()
+        file_content = await csv_file.read()
 
-    # Lê o conteúdo do arquivo
-    content = await file.read()
-    # Converte para StringIO para leitura pelo módulo CSV
-    csv_file = StringIO(content.decode("utf-8"))
-    csv_reader = csv.reader(csv_file)
+        await servico_medicamentos.preencher_tabelas_medicamentos(file_content)
+        await inicia_pre_processamento()
 
-    # Processa as linhas do CSV
-    for row in csv_reader:
-        # Substitua isso pelo seu processamento
-        print(row)
+        return {"texto": 'Arquivo importado com sucesso'}
+    except Exception as erro:
+        print(f"Erro: {erro}")
+        raise HTTPException(status_code=500, detail='Ocorreu um erro ao tentar importar o CSV de medicamentos')
 
-    return {"filename": file.filename, "message": "CSV processado com sucesso"}
-    # try:
-    #     servico_medicamentos = MedicamentosServico()
-    #     content = await csvFile.file()
-    #     print(content)
-    #     await servico_medicamentos.preencher_tabelas_medicamentos(content)
-    #     await inicia_pre_processamento()
-    #     return {"texto": 'Arquivo importado com sucesso'}
-    # except Exception as erro:
-    #     print(csvFile)
-    #     raise HTTPException(status_code=500, detail='Ocorreu um erro ao tentar importar o CSV de medicamentos')
 
 @app.post("/suprimentos/importar-csv-suprimentos")
 async def importar_csv_suprimentos(csvFile: UploadFile = File(None)):
