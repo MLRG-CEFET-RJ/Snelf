@@ -9,11 +9,11 @@ class DBConnection:
         if cls._self is None:
             cls._self = super().__new__(cls)
 
-            database = "postgres"
+            database = "snelf"
             user = "postgres"
-            password = "123"
+            password = "ffc1902"
             host = "localhost"
-            port = "5432" 
+            port = "5432"
 
             def tryToConnect():
                 try:

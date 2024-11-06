@@ -1,6 +1,7 @@
 from repositorios.medicamentos_repositorio import MedicamentosRepositorio
 import pandas as pd
 import random
+import io
 
 class MedicamentosServico():
     def __init__(self):
@@ -20,6 +21,10 @@ class MedicamentosServico():
     
     def __inserir_transacoes(self, csv_file): 
         try:
+            # Converter os bytes em um objeto de buffer de bytes
+            if isinstance(csv_file, bytes):
+                csv_file = io.BytesIO(csv_file)
+            
             cols = [
                 "CodigoNFe", 
                 "DataEmissao", 

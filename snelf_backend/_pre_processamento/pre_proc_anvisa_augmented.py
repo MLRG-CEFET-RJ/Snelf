@@ -31,6 +31,8 @@ def run():
     import nltk
     # nltk.download('stopwords')
     # nltk.download('punkt')
+    
+    nltk.download('punkt_tab')
 
     from nltk.tokenize import word_tokenize
     from nltk.corpus import stopwords

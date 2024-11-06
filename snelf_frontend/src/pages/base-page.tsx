@@ -25,6 +25,8 @@ export const BasePage = observer(() => {
         if(!file) return;
 
         mediceServiceInstance.importMedicines(file)
+
+        setIsOpen(false)
     }
 
     return (

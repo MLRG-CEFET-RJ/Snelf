@@ -90,7 +90,7 @@ class MedicinesStore {
         }
     };
 
-    importMedicinesCsv = async (csvFile?: File) => {
+    importMedicinesCsv = async (csvFile: File) => {
         this.setLoading(true);
         this.setError(null);
         try {

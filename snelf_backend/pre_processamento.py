@@ -12,6 +12,8 @@ from sklearn.model_selection import train_test_split
 from lib.extractor1 import Extractor as xtc
 from importar_csv_para_sql import get_limited_medicines_with_clean
 
+nltk.download('punkt_tab')
+
 #Carrega dados
 #data_path = '../datasets/medicamentos/'
 #data_file = 'produtos_farmaceuticos.csv'
