@@ -395,7 +395,7 @@ div.rendered_html table {
     font-size: 0.8rem !important;
 }
 
-/* TODO: This is hacky; should have own class and not derive from link */
+/*  This is hacky; should have own class and not derive from link */
 .md-nav span.caption {
     font-weight: 700;
     pointer-events: none;

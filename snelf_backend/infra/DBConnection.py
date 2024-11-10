@@ -8,7 +8,7 @@ class DBConnection:
     def __new__(cls):
         if cls._self is None:
             cls._self = super().__new__(cls)
-
+            #TODO:incluir .env para configurar as variaveis de ambiente de banco de dados
             database = "postgres"
             user = "postgres"
             password = "123"

@@ -2,7 +2,7 @@ import { BASE_URL } from '../../config/config';
 import axios, { AxiosInstance } from 'axios';
 
 export class MedicinesService {
-    private baseUrl = `${BASE_URL}/medicamentos`;
+    private baseUrl = `${BASE_URL}/base`;
     private axiosInstace: AxiosInstance;
 
     constructor() { 
@@ -15,12 +15,12 @@ export class MedicinesService {
         });
     }
 
-    async importMedicines(csvFile: File): Promise<any> {
+    async importFile(file: File): Promise<any> {
         try {
             const formData = new FormData();
-            formData.append("csv_file", csvFile);
+            formData.append("file", file);
             const response = await this.axiosInstace.post(
-                `${this.baseUrl}/importar-csv-medicamentos`, formData, 
+                `${this.baseUrl}/import-file`, formData, 
                 { headers: { "Content-Type": "multipart/form-data" }}
             );
             return response.data;

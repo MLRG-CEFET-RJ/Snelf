@@ -194,7 +194,7 @@ code,kbd,pre{
     -webkit-box-decoration-break:clone;
     box-decoration-break:clone
 }
-/* TODO: Reverted from #35, needs a different fix
+/* Reverted from #35, needs a different fix
 .md-typeset code::before {
   content: "\00a0";
 }
@@ -2403,7 +2403,7 @@ html .md-typeset .superfences-tabs>label:hover{
         left:auto
     }
     .md-nav--primary .md-nav__list{
-        /* TODO: Consider changing, but need more fix
+        /* Consider changing, but need more fix
              See GH#48
         */
         flex:1;

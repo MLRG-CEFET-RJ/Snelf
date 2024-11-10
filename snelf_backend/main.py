@@ -1,32 +1,46 @@
-import csv
-from io import BytesIO, StringIO
 from fastapi import FastAPI, File, UploadFile, HTTPException, Query
-from typing import Optional
+from fastapi.middleware.cors import CORSMiddleware
+from typing import Optional, Dict
+import uvicorn
 
-from fastapi.responses import StreamingResponse
-import pandas as pd
-from utils.files import ManipuladorDeArquivos
+from http import HTTPStatus
+from treinamento import Treinamento 
 from modelos.http_model import HttpResponse
-from importar_csv_para_sql import fill_db_tables, get_medicines_from_label, getTransactionsFromClean, get_transactions_from_product
-from pre_processamento import inicia_pre_processamento
+from utils.files import ManipuladorDeArquivos
 from servicos.fasttext import ManipuladorFasttext
 from servicos.medicamentos import MedicamentosServico
 from servicos.suprimentos import SuprimentosServico
-from fastapi.middleware.cors import CORSMiddleware
-from http import HTTPStatus
-import uvicorn
-from treinamento import Treinamento 
+
+from pre_processamento import inicia_pre_processamento
 
 app = FastAPI()
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
     
-@app.get('/')
-async def home():
-    return {
-        'TESTE': 'TESTE'
+@app.post('/base/import-file')
+async def import_file(file: UploadFile = File(...)) -> Dict[str, str]:
+    if not file:
+        raise HTTPException(status_code=400, detail='file not found')
+    try:
+        await process_file(file)
+        await inicia_pre_processamento()
+    except Exception as error:
+        print(f'ERROR :: import_file :: {error}')
+        raise HTTPException(status_code=500, detail='error occurred while trying to import file')
+    return {'text': 'file imported successfully'}
+
+async def process_file(file: UploadFile) -> None:
+    file_content = await file.read()
+    product_type = 'medicamento'
+    services = {
+        'medicamento': lambda: MedicamentosServico().preencher_tabelas_medicamentos(file_content),
+        'suprimento': lambda: SuprimentosServico().inserir_suprimentos(file_content)
     }
+    await services.get(product_type, lambda: print('No match found'))()
+
+
+
 
 """
 O post abaixo é usado para iniciar ou retormar o treinamento
@@ -82,33 +96,8 @@ async def obter_status_treinamento():
         return HTTPException(detail='Ocorreu um erro ao tentar obter o status do treinamento', status_code=500)
 
 
-@app.post("/medicamentos/importar-csv-medicamentos")
-async def importar_csv_medicamentos(csv_file: UploadFile = File(...)):
-    try:
-        if csv_file is None:
-            raise HTTPException(status_code=400, detail="Arquivo CSV não foi enviado.")
-        
-        servico_medicamentos = MedicamentosServico()
-        file_content = await csv_file.read()
-
-        await servico_medicamentos.preencher_tabelas_medicamentos(file_content)
-        await inicia_pre_processamento()
-
-        return {"texto": 'Arquivo importado com sucesso'}
-    except Exception as erro:
-        print(f"Erro: {erro}")
-        raise HTTPException(status_code=500, detail='Ocorreu um erro ao tentar importar o CSV de medicamentos')
 
 
-@app.post("/suprimentos/importar-csv-suprimentos")
-async def importar_csv_suprimentos(csvFile: UploadFile = File(None)):
-    try:
-        servico_suprimentos = SuprimentosServico()
-        await servico_suprimentos.inserir_suprimentos(csvFile)
-        #await inicia_pre_processamento()
-        return {"texto": 'Arquivo importado com sucesso'}
-    except Exception as erro:
-        raise HTTPException(status_code=500, detail='Ocorreu um erro ao tentar importar o CSV de medicamentos')
     
 @app.get("/medicamentos/consultar-grupo")
 async def consultar_grupo(
