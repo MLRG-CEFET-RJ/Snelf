@@ -1,4 +1,7 @@
 import psycopg2 # type: ignore
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 class DBConnection:
     _self = None
@@ -9,11 +12,11 @@ class DBConnection:
         if cls._self is None:
             cls._self = super().__new__(cls)
 
-            database = "postgres"
-            user = "postgres"
-            password = "123"
-            host = "localhost"
-            port = "5432" 
+            database = os.getenv('DB_DATABASE')
+            user = os.getenv('DB_USER')
+            password = os.getenv('DB_PASSWORD')
+            host = os.getenv('DB_HOST')
+            port = os.getenv('DB_PORT')
 
             def tryToConnect():
                 try:
