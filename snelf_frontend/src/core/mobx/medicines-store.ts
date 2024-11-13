@@ -94,7 +94,7 @@ class MedicinesStore {
         this.setLoading(true);
         this.setError(null);
         try {
-            await this.baseService.importMedicines(csvFile);
+            await this.baseService.importFile(csvFile);
             runInAction(() => {
                 this.setStatus("CSV de medicamentos importado com sucesso.");
             });

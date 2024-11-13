@@ -30,6 +30,7 @@ async def inicia_pre_processamento():
     # df = get_all_medicine_expanded_df()
     df = get_limited_medicines_with_clean()
     print('TERMINOU DE PEGAR O DATA FRAME.')
+    print('dataframe', df)
     
     # df = pd.read_csv(csvFile.file, usecols=cols, dtype={0:str, 1:int})
     # print(df.head())
@@ -77,7 +78,7 @@ async def inicia_pre_processamento():
                ")")
     df['DescricaoProduto'] = df['DescricaoProduto'].str.split(pattern, n=1).str[0].str.strip()
     df.drop_duplicates(subset=['DescricaoProduto'], inplace=True)
-
+    print('resultado', df)
     #Exportação
     data_file = 'medicamentos.csv'
 
@@ -89,7 +90,7 @@ async def inicia_pre_processamento():
                         index=False,
                         encoding='utf-8')
     await medicamentos()
-
+    print('pd', pd)
     #Pensar em como executar o data augmentation
     async def data_Augmentation():
          os.system('python3 ./data_augmentation.py "./dados/medicamentos.csv" "./dados/medicamentos_aumentado.csv" medicamentos 1')
@@ -162,6 +163,7 @@ async def inicia_pre_processamento():
 
     df = pd.read_csv(src, dtype={0:int, 1:str, 2:str}, sep=';',encoding='latin1')
     df.shape
+    print('df dps', df)
 
     print(src)
     print(df.head())
@@ -169,37 +171,44 @@ async def inicia_pre_processamento():
     idxs = list()
     removed = list()
 
-    # iterate over dataframe
     for index, row in df.iterrows():
         if row['cod'] == 1:
-            original_words = get_words(row['descricao'])  # get non stopwords
-            _, conc, _, qtd = xtc.extract(row['descricao'])  # get principal terms
+            original_words = get_words(row['descricao'])
+            _, conc, _, qtd = xtc.extract(row['descricao'])
             conc, qtd = remove_blank([conc, qtd])
             master_idx = index
             continue
-        
-        new_desc = clean_desc(original_words, row['descricao'])  # remove irrelevant substrings
-        if not new_desc:
-            idxs.append(index)  # storage index for future drop
-            removed.append([master_idx, index])
-            continue
-    
-        _, new_conc, _, new_qtd = xtc.extract(new_desc)  # get principal terms
-        new_conc, new_qtd = remove_blank([new_conc, new_qtd])
-    
-        if conc == new_conc and qtd == new_qtd:
-            df.at[index,'descricao'] = new_desc  # replace descricao with cleaned new_desc
-        else:
-            idxs.append(index)  # storage index for future drop
-            removed.append([master_idx, index])
 
-    df_removed = pd.DataFrame(removed, columns=['master_idx', 'removed_idx'])    
+        new_desc = clean_desc(original_words, row['descricao'])
+        if not new_desc:
+            idxs.append(index)
+            removed.append([master_idx, index])
+            print(f"Appended to removed (empty new_desc): master_idx={master_idx}, index={index}")
+            continue
+
+        _, new_conc, _, new_qtd = xtc.extract(new_desc)
+        new_conc, new_qtd = remove_blank([new_conc, new_qtd])
+
+        if conc == new_conc and qtd == new_qtd:
+            df.at[index, 'descricao'] = new_desc
+            print(f"Updated descricao at index={index} with new_desc={new_desc}")
+        else:
+            idxs.append(index)
+            removed.append([master_idx, index])
+            print(f"Appended to removed (terms mismatch): master_idx={master_idx}, index={index}")
+
+    if not removed:
+        removed = [[None, None]]
+        print("No rows matched the conditions. Added placeholder to 'removed'.")
+
+    df_removed = pd.DataFrame(removed, columns=['master_idx', 'removed_idx'])
     df_grouped = df_removed.groupby('master_idx')['removed_idx'].apply(list).reset_index()
 
-    pd.set_option('display.max_colwidth', None)
+    pd.set_option('display.max_colwidth', -1)
     print('AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII')
-    print('um')
-    print(df_grouped)
+    print('df_grouped', df_grouped)
+    print('df_grouped.loc[0]', df_grouped.loc[0])
+    print('df_grouped.loc[0].values',df_grouped.loc[0].values)
     print('dois')
     master, removed = df_grouped.loc[0].values #ele quebra aqui provavelmente
     print('tres')
