@@ -2,7 +2,7 @@ import { BASE_URL } from '../../config/config';
 import axios, { AxiosInstance } from 'axios';
 
 export class MedicinesService {
-    private baseUrl = `${BASE_URL}/base`;
+    private baseUrl = `${BASE_URL}/`;
     private axiosInstace: AxiosInstance;
 
     constructor() { 
@@ -20,7 +20,7 @@ export class MedicinesService {
             const formData = new FormData();
             formData.append("file", file);
             const response = await this.axiosInstace.post(
-                `${this.baseUrl}/import-file`, formData, 
+                `${this.baseUrl}/base/import-file`, formData, 
                 { headers: { "Content-Type": "multipart/form-data" }}
             );
             return response.data;
@@ -32,7 +32,7 @@ export class MedicinesService {
     async consultByGroup(group: string, offset: number, limit: number): Promise<any> {
         try {
             const response = await this.axiosInstace.get(
-                `/consultar-grupo?busca=${group}&offset=${offset}&limit=${limit}`
+                `/medicamentos/consultar-grupo?busca=${group}&offset=${offset}&limit=${limit}`
             );
             return response.data;
         } catch (error) {
@@ -43,7 +43,7 @@ export class MedicinesService {
     async consultByClean(clean: string, offset: number, limit: number): Promise<any> {
         try {
             const response = await this.axiosInstace.get(
-                `/consultar-clean?busca=${clean}&offset=${offset}&limit=${limit}`
+                `/medicamentos/consultar-clean?busca=${clean}&offset=${offset}&limit=${limit}`
             );
             return response.data;
         } catch (error) {

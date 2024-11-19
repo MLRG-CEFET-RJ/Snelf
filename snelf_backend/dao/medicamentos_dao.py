@@ -81,11 +81,10 @@ class MedicamentosDAO(BaseDAO):
                     quantidadecomercial,
                     valorunitariocomercial
                 FROM transactions t 
-                WHERE LOWER(t.descricaoproduto) LIKE LOWER('%{busca}%')
+                WHERE UPPER(t.descricaoproduto) LIKE UPPER('%{busca}%')
                 LIMIT {limit}
                 OFFSET {offset}
                 """
-        print(f"Query executada: {query}")
         return self.select(query)
     
     def consultar_medicamentos_pela_label(self, label, offset, limit):

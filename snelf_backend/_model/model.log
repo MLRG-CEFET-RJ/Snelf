@@ -1,4 +1,2 @@
-Read 0M words
-Number of words:  496
-Number of labels: 46
-Progress: 100.0% words/sec/thread:  128341 lr: -0.000041 avg.loss:  1.947513 ETA:   0h 0m 0sProgress: 100.0% words/sec/thread:  128175 lr:  0.000000 avg.loss:  1.947513 ETA:   0h 0m 0s
+docker: error during connect: Head "http://%2F%2F.%2Fpipe%2FdockerDesktopLinuxEngine/_ping": open //./pipe/dockerDesktopLinuxEngine: O sistema não pode encontrar o arquivo especificado.
+See 'docker run --help'.

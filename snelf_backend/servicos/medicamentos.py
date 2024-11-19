@@ -120,6 +120,7 @@ class MedicamentosServico():
             ]
             for transacao in transacoes_db            
         ]
+        
         return transacoes
 
     def obter_medicamentos_pela_label(self, label, offset, limit):

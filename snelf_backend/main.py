@@ -13,6 +13,8 @@ from servicos.suprimentos import SuprimentosServico
 
 from pre_processamento import inicia_pre_processamento
 
+import fasttext
+
 app = FastAPI()
 
 if __name__ == "__main__":
@@ -54,12 +56,11 @@ async def treinar_modelo(csv_file: Optional[UploadFile] = File(None), force_rest
             manipulador_de_arquivos = ManipuladorDeArquivos()
             await manipulador_de_arquivos.escrever_dados_treinamento_txt(csv_file=csv_file)
         
-        """ 
-        Descomente o trecho abaixo para treinar o modelo
+        #Descomente o trecho abaixo para treinar o modelo
         modelo = fasttext.train_supervised('dados/data.train.txt')
         print(modelo.labels)
         print(modelo.words)
-        modelo.save_model('modelos/modelo_novo.bin') """
+        modelo.save_model('modelos/modelo_novo.bin')
         manipulador_fasttext = ManipuladorFasttext()
         resposta_treinamento = manipulador_fasttext.iniciar_treinamento()
         
@@ -116,6 +117,8 @@ async def consultar_grupo(
         medicamentos = medicamentos + medicamentos_filtrados[0:100]
         """
         
+        print(medicamentos)
+        
         return { 'medicamentos': medicamentos }
     except Exception as erro:
         raise HTTPException(status_code=500, detail='Ocorreu um erro ao tentar consultar o grupo de medicamentos')
@@ -129,6 +132,7 @@ async def consultar_clean(
     try:
         servico_medicamentos = MedicamentosServico()
         medicamentos = servico_medicamentos.consultar_transacoes_pelo_clean(busca, offset, limit)
+        print(medicamentos)
         return { 'medicamentos': medicamentos }
     except Exception as erro:
         raise HTTPException(status_code=500, detail='Ocorreu um erro ao tentar consultar o clean dos medicamentos')
