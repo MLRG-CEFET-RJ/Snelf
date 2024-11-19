@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 import re
 import nltk
 import os
@@ -14,28 +13,15 @@ from importar_csv_para_sql import get_limited_medicines_with_clean
 
 nltk.download('punkt_tab')
 
-#Carrega dados
-#data_path = '../datasets/medicamentos/'
-#data_file = 'produtos_farmaceuticos.csv'
-
 async def inicia_pre_processamento():
     print('Iniciou pré-processamento')
-    cols = ['DescricaoProduto','CLEAN']
     
     data_path = './dados/'
     if not os.path.exists(data_path) :
         os.mkdir(data_path)
 
-
-    # df = get_all_medicine_expanded_df()
     df = get_limited_medicines_with_clean()
-    print('TERMINOU DE PEGAR O DATA FRAME.')
-    print('dataframe', df)
-    
-    # df = pd.read_csv(csvFile.file, usecols=cols, dtype={0:str, 1:int})
-    # print(df.head())
-    #df = pd.read_csv(content, usecols=cols, dtype={0:str, 1:int})
- 
+    print('Terminou de pegar o data frame')
     
     # Removendo rows com EAN nulo
     df.dropna(subset=['CLEAN'], inplace=True)
@@ -52,7 +38,6 @@ async def inicia_pre_processamento():
     indices = df.apply(is_ean_valid, axis=1)
     df = df[indices]
     
-
     #Valores Nulos
     df[df['DescricaoProduto'].isnull()]
     patt = '^NI\s|^NC\s'  # regex pattern
@@ -78,22 +63,17 @@ async def inicia_pre_processamento():
                ")")
     df['DescricaoProduto'] = df['DescricaoProduto'].str.split(pattern, n=1).str[0].str.strip()
     df.drop_duplicates(subset=['DescricaoProduto'], inplace=True)
-    print('resultado', df)
+
     #Exportação
     data_file = 'medicamentos.csv'
 
-
     async def medicamentos():
-        pd.DataFrame(df).to_csv('{}{}'.format(data_path, data_file), 
-                        sep=';', 
-                        header=['descricao', 'clean'],
-                        index=False,
-                        encoding='utf-8')
+        pd.DataFrame(df).to_csv('{}{}'.format(data_path, data_file), sep=';', header=['descricao', 'clean'], index=False, encoding='utf-8')
     await medicamentos()
-    print('pd', pd)
+
     #Pensar em como executar o data augmentation
     async def data_Augmentation():
-         os.system('python3 ./data_augmentation.py "./dados/medicamentos.csv" "./dados/medicamentos_aumentado.csv" medicamentos 1')
+        os.system('python3 ./data_augmentation.py "./dados/medicamentos.csv" "./dados/medicamentos_aumentado.csv" medicamentos 1')
 
     await data_Augmentation()
     
@@ -129,8 +109,6 @@ async def inicia_pre_processamento():
     def remove_blank(terms):
         return [re.sub('\s', '', t) if t is not None else t for t in terms]
 
-    #data_path = '../datasets/medicamentos/augmented/'
-    #Aqui embaixo é medicamentos_aumentado.csv, mas vai ser alterado por enquanto
     data_file = 'medicamentos_aumentado.csv'
 
     def custom_replace(desc):
@@ -144,7 +122,6 @@ async def inicia_pre_processamento():
     buff = 300
     content = ''
 
-    
     with open(src, 'r',encoding='latin1') as fs:  
         with open(target, 'w',encoding='latin1') as ft:
             ft.write(fs.readline())  # header
@@ -160,13 +137,8 @@ async def inicia_pre_processamento():
     data_file = 'medicamentos_aumentado_mod.csv'
     src = '{}{}'.format(data_path, data_file)
 
-
     df = pd.read_csv(src, dtype={0:int, 1:str, 2:str}, sep=';',encoding='latin1')
     df.shape
-    print('df dps', df)
-
-    print(src)
-    print(df.head())
 
     idxs = list()
     removed = list()
@@ -197,26 +169,32 @@ async def inicia_pre_processamento():
             removed.append([master_idx, index])
             print(f"Appended to removed (terms mismatch): master_idx={master_idx}, index={index}")
 
+    # Filtra qualquer entrada que não seja uma lista de dois elementos
+    removed = [item for item in removed if isinstance(item, list) and len(item) == 2]
+
     if not removed:
-        removed = [[None, None]]
-        print("No rows matched the conditions. Added placeholder to 'removed'.")
+        print("No rows matched the conditions.")
+    else:
+        df_removed = pd.DataFrame(removed, columns=['master_idx', 'removed_idx'])
+        print(df_removed)
 
-    df_removed = pd.DataFrame(removed, columns=['master_idx', 'removed_idx'])
-    df_grouped = df_removed.groupby('master_idx')['removed_idx'].apply(list).reset_index()
+    # Verificação se df_removed está vazio
+    if 'df_removed' in locals() and not df_removed.empty:
+        df_grouped = df_removed.groupby('master_idx')['removed_idx'].apply(list).reset_index()
 
-    pd.set_option('display.max_colwidth', -1)
-    print('AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII')
-    print('df_grouped', df_grouped)
-    print('df_grouped.loc[0]', df_grouped.loc[0])
-    print('df_grouped.loc[0].values',df_grouped.loc[0].values)
-    print('dois')
-    master, removed = df_grouped.loc[0].values #ele quebra aqui provavelmente
-    print('tres')
-    indexes = [master] + removed
-    print('quatro')
-    df.loc[indexes][['cod', 'descricao']]
-    print('1')
-    #Limpando o conjunto de dados
+        # Verificação se df_grouped está vazio
+        if not df_grouped.empty:
+            # Pegando o primeiro grupo de master_idx e removed_idx
+            master, removed = df_grouped.loc[0].values
+            indexes = [master] + removed
+            filtered_df = df.loc[indexes][['cod', 'descricao']]
+            print(filtered_df)
+        else:
+            print("df_grouped está vazio. Nenhum registro foi agrupado.")
+    else:
+        print("df_removed está vazio. Nenhuma linha foi removida ou agrupada.")
+
+    # Limpeza do conjunto de dados
     df.drop(idxs, inplace=True)
     df.dropna(inplace=True)
     df.drop_duplicates(inplace=True)
@@ -231,10 +209,7 @@ async def inicia_pre_processamento():
     pattern2 = r'(?i)comprar em (ilha dental|agroforte|farma prata)'
     pattern3 = r'(?i)(onde)?\s*comprar'
     pattern4 = r'(?i)^encontre'
-    replaces = {pattern1: '', 
-                pattern2: '', 
-                pattern3: '', 
-                pattern4: '',}
+    replaces = {pattern1: '', pattern2: '', pattern3: '', pattern4: '',}
     df.replace(replaces, regex=True, inplace=True)
 
     cond1 = df['cod'] == 1
@@ -246,15 +221,15 @@ async def inicia_pre_processamento():
 
     pattern = r'(?i)oferta'
     df[df['descricao'].str.contains(pattern)].shape
-    print('2')
-    # after removing, strip again
+
+    # After removing, strip again
     df['descricao'] = df['descricao'].str.strip()
 
     start = 5056
-    end = start+20
+    end = start + 20
     cod = df['cod'].tolist()[start:end]
     desc = df['descricao'].tolist()[start:end]
-    lista = list(zip(cod,desc))
+    lista = list(zip(cod, desc))
     for cod, desc in lista:
         if cod == 3:
             tab = '\t'
@@ -263,34 +238,24 @@ async def inicia_pre_processamento():
             tab = ''
             br = '\n'
             original_words = [w for w in desc if len(w) > 2]
-        print('{}{}{}'.format(br,tab,desc))
-    print('3')
-    #Gravado
+        print('{}{}{}'.format(br, tab, desc))
+
+    # Salvando os dados
     data_file = 'medicamentos_aumentado_preproc.csv'
-    df.to_csv('{}{}'.format(data_path, data_file),
-          sep=';',
-          header=df.columns,
-          index=False,
-          encoding='utf-8')
-    print('4')
-    #MAPEAMENTO EAN
+    df.to_csv('{}{}'.format(data_path, data_file), sep=';', header=df.columns, index=False, encoding='utf-8')
+
+    # Mapeamento EAN
     df_mapping = pd.read_pickle('./auxiliar/ean_key_mapping.pkl')
 
     data_file = 'medicamentos_aumentado_preproc.csv'
-    df = pd.read_csv('{}{}'.format(data_path, data_file), 
-                 sep=';',
-                 dtype={0:int, 1:str, 2:str})
+    df = pd.read_csv('{}{}'.format(data_path, data_file), sep=';', dtype={0: int, 1: str, 2: str})
     dfm = pd.merge(df, df_mapping, on='ean')
 
     del dfm['ean']
 
     data_file = 'medicamentos_aumentado_preproc_mapped.csv'
+    dfm.to_csv('{}{}'.format(data_path, data_file), sep=';', index=False, encoding='utf-8')
 
-    dfm.to_csv('{}{}'.format(data_path, data_file),
-            sep=';',
-            index=False,
-            encoding='utf-8')
-    print('5')
     #OVERSAMPLING
     data_medicamentos = './dados/medicamentos_aumentado_preproc_mapped.csv'
     df_medicamentos = pd.read_csv(data_medicamentos, sep=';', dtype=str)
@@ -300,52 +265,48 @@ async def inicia_pre_processamento():
     ros = RandomOverSampler(random_state=0)
 
     X_resampled, y_resampled = ros.fit_resample(pd.DataFrame(df[['cod', 'descricao']]), df['chave'])
-    elapsed_time = (time.time() - start) / 60
     df_oversampled = pd.concat([X_resampled, y_resampled], axis=1)
 
     data_file = './dados/oversampled.csv'
 
-    df_oversampled.to_csv(data_file,
-                      sep=';',
-                      header=df.columns,
-                      index=False,
-                      encoding='utf-8')
-    print('6')
-    #TREINAMENTO
+    df_oversampled.to_csv(data_file, sep=';', header=df.columns, index=False, encoding='utf-8')
+
+    # TREINAMENTO
     df = pd.read_csv('./dados/oversampled.csv', sep=';')
-    print('7')
+
     # Obtendo somente os registros originais de medicamentos
     df = df[df['cod'] == 1]
-    print('8')
+
     # Removendo duplicatas
     df.drop_duplicates(inplace=True)
     df.drop_duplicates(subset=['descricao'], inplace=True)
-    print('9')
+
     # Removendo classes que só possuem 1 único exemplo
     dfg = df.groupby('chave')['descricao'].count().sort_values().reset_index()
     keys_to_remove = dfg[dfg['descricao'] == 1]['chave']
     df = df[~df['chave'].isin(keys_to_remove)]
-    print('10')
+
     # Split
     _, df_test = train_test_split(df, test_size=46, stratify=df['chave'])
-    print('11')
+
     # Gravando em arquivo o conjunto de dados
     df_test['label'] = '__label__' + df_test['chave'].astype(str)
     df_test.drop(['cod', 'chave'], axis=1, inplace=True)
     df_test = df_test[['label', 'descricao']]
-    # np.savetxt('./dados/data.test.txt', df_test, fmt='%s', encoding='utf-8')
-    np.savetxt('./dados/data.test.txt', df_test, fmt='%s')
-    print('13')
+
+    # Ajuste para gravação com pandas para lidar com caracteres especiais
+    df_test.to_csv('./dados/data.test.txt', sep=' ', index=False, header=False, encoding='utf-8')
+
     # Remover do dataset aumentado todos os registros com descrição pertencente ao conjunto de dados
     df = pd.read_csv('./dados/oversampled.csv', sep=';')
     df = df[~df['descricao'].isin(df_test['descricao'])]
-    print('14')
+
     # Gravando em arquivo o conjunto de treino
     df['label'] = '__label__' + df['chave'].astype(str)
     df.drop(['cod', 'chave'], axis=1, inplace=True)
     df = df[['label', 'descricao']]
-    # np.savetxt('./dados/data.train.txt', df, fmt='%s', encoding='utf-8')
-    np.savetxt(os.path.join(os.getcwd(), './dados/data.train.txt'), df, fmt='%s')
-    print('15')
-    #inserir condição para validar se ocorreu o pre processamento ou não
+
+    # Ajuste para gravação com pandas para lidar com caracteres especiais
+    df.to_csv(os.path.join(os.getcwd(), './dados/data.train.txt'), sep=' ', index=False, header=False, encoding='utf-8')
+
     return "Pré processamento feito com sucesso"
