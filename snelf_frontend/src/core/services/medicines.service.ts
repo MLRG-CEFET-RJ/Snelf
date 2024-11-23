@@ -50,4 +50,16 @@ export class MedicinesService {
             throw error;
         }
     }
+
+    async consultarMedicamentos(type_search: string, target: string, offset: number, limit: number): Promise<any> {
+        try {
+            const response = await this.axiosInstace.get(
+                `/medicamentos/buscar-produtos?type_search=${type_search}&target=${target}&offset=${offset}&limit=${limit}`
+            );
+            console.log(response.data)
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    }
 }

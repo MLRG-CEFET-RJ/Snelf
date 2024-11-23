@@ -137,6 +137,20 @@ async def consultar_clean(
     except Exception as erro:
         raise HTTPException(status_code=500, detail='Ocorreu um erro ao tentar consultar o clean dos medicamentos')
     
+@app.get("/medicamentos/buscar-produtos")
+async def consultar_clean(
+    type_search: str = Query(..., description="Tipo de busca(clean ou descrição)"),
+    target: str = Query(..., description="Termo de busca"),
+    offset: int = Query(0, description="Deslocamento para paginação"),
+    limit: int = Query(10, description="Limite de resultados por página")
+):
+    try:
+        servico_medicamentos = MedicamentosServico()
+        medicamentos = servico_medicamentos.consultar_transacoes_pelo_tipo_de_busca(type_search.lower(), target, offset, limit)
+        return { 'medicamentos': medicamentos }
+    except Exception as erro:
+        raise HTTPException(status_code=500, detail='Ocorreu um erro ao tentar consultar o clean dos medicamentos')
+    
 @app.get("/suprimentos/descricao")
 async def consultar_descricao(
     busca: str = Query(..., description="Termo de busca"),

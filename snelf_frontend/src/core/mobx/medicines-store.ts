@@ -68,14 +68,7 @@ class MedicinesStore {
         this.setError(null);
         let response: any = null;
         try {
-            switch (searchType) {
-                case SearchType.CLEAN:
-                    response = await this.baseService.consultByClean(search, offset, limit);
-                    break;
-                case SearchType.GROUP:
-                    response = await this.baseService.consultByGroup(search, offset, limit);
-                    break;
-            }
+            response = await this.baseService.consultarMedicamentos(searchType, search, offset, limit)
             runInAction(() => {
                 this.setRows(response.medicamentos);
             });
