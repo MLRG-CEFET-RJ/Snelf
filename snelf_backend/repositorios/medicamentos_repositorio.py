@@ -46,5 +46,5 @@ class MedicamentosRepositorio:
     def consultar_medicametos_pela_label(self, label, offset, limit):
         return self.dao.consultar_medicamentos_pela_label(label, offset, limit)
     
-    def consultar_medicamentos_pelo_tipo_de_busca(self, type_search, target, offset, limit):
-        return self.dao.consultar_medicamentos_pelo_tipo_de_busca(type_search, target, offset, limit)
+    def consultar_medicamentos_pelo_tipo_de_busca(self, filters, offset, limit):
+        return self.dao.consultar_medicamentos_pelo_tipo_de_busca(filters, offset, limit)

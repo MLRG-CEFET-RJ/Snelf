@@ -86,18 +86,48 @@ class MedicamentosDAO(BaseDAO):
                     OFFSET {offset}"""
         return self.select(query)
     
-    def consultar_medicamentos_pelo_tipo_de_busca(self, type_search, target, offset, limit):
-        condition = f"WHERE LOWER(t.clean) LIKE LOWER('%{target}%')" if type_search == "clean" else f"WHERE LOWER(t.descricaoproduto) LIKE LOWER('%{target}%')"
+    def consultar_medicamentos_pelo_tipo_de_busca(self, filters, offset, limit):
+        column_mapping = {
+            "clean": "clean",
+            "descricaoProduto": "descricaoproduto",
+            "unidadeComercial": "unidadecomercial",
+            "valorUnitarioComercial": "valorunitariocomercial"
+        }
 
-        query = f"""SELECT 
-                        CLEAN, 
-                        DescricaoProduto, 
-                        unidadecomercial,
-                        quantidadecomercial,
-                        valorunitariocomercial
-                    FROM transactions t
-                    {condition}
-                    LIMIT {limit}
-                    OFFSET {offset}"""
+        conditions = []
+        
+        for attr, column in column_mapping.items():
+            filter_value = getattr(filters, attr, None)
+            if filter_value:
+                if isinstance(filter_value, str):
+                    conditions.append(f"LOWER(t.{column}) LIKE LOWER(:{attr})")
+                else:
+                    conditions.append(f"t.{column} = :{attr}")
+        
+        condition_str = " WHERE " + " AND ".join(conditions) if conditions else ""
+        
+        query = f"""
+            SELECT 
+                clean, 
+                descricaoproduto, 
+                unidadecomercial,
+                quantidadecomercial,
+                valorunitariocomercial
+            FROM transactions t
+            {condition_str}
+            LIMIT :limit OFFSET :offset
+        """
 
-        return self.select(query)
+        params = {
+            "clean": f"%{filters.clean}%" if filters.clean else None,
+            "descricaoProduto": f"%{filters.descricaoProduto}%" if filters.descricaoProduto else None,
+            "unidadeComercial": filters.unidadeComercial,
+            "valorUnitarioComercial": filters.valorUnitarioComercial,
+            "limit": limit,
+            "offset": offset
+        }
+        
+        params = {key: value for key, value in params.items() if value is not None}
+
+        return self.select(query, params)
+

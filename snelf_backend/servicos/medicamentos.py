@@ -124,8 +124,8 @@ class MedicamentosServico():
         return medicamentos
     
     
-    def consultar_transacoes_pelo_tipo_de_busca(self, type_search:str, target: str, offset: int, limit):
-        medicamentos_db = self.repositorio.consultar_medicamentos_pelo_tipo_de_busca(type_search, target, offset, limit)
+    def search_medicines(self, filters, offset, limit):
+        medicamentos_db = self.repositorio.consultar_medicamentos_pelo_tipo_de_busca(filters, offset, limit)
         
         if not medicamentos_db:
             return []
