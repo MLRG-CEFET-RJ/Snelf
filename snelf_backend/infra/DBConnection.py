@@ -8,10 +8,10 @@ class DBConnection:
     def __new__(cls):
         if cls._self is None:
             cls._self = super().__new__(cls)
-
-            database = "postgres"
+            #TODO:incluir .env para configurar as variaveis de ambiente de banco de dados
+            database = "snelf"
             user = "postgres"
-            password = "123"
+            password = "ffc1902"
             host = "localhost"
             port = "5432" 
 

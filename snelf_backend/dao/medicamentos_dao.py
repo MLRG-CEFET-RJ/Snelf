@@ -72,22 +72,6 @@ class MedicamentosDAO(BaseDAO):
         valores = [item for sublista in transacoes for item in sublista]
         return self.insert(query, valores)
 
-    def consultar_transacoes_pela_descricao(self, busca, offset, limit):
-        query = f"""
-                SELECT 
-                    CLEAN, 
-                    DescricaoProduto, 
-                    unidadecomercial,
-                    quantidadecomercial,
-                    valorunitariocomercial
-                FROM transactions t 
-                WHERE LOWER(t.descricaoproduto) LIKE LOWER('%{busca}%')
-                LIMIT {limit}
-                OFFSET {offset}
-                """
-        print(f"Query executada: {query}")
-        return self.select(query)
-    
     def consultar_medicamentos_pela_label(self, label, offset, limit):
         query = f"""SELECT t.*
                     FROM products_classes pc
@@ -102,7 +86,9 @@ class MedicamentosDAO(BaseDAO):
                     OFFSET {offset}"""
         return self.select(query)
     
-    def consultar_medicamentos_pelo_clean(self, clean, offset, limit):
+    def consultar_medicamentos_pelo_tipo_de_busca(self, type_search, target, offset, limit):
+        condition = f"WHERE LOWER(t.clean) LIKE LOWER('%{target}%')" if type_search == "clean" else f"WHERE LOWER(t.descricaoproduto) LIKE LOWER('%{target}%')"
+
         query = f"""SELECT 
                         CLEAN, 
                         DescricaoProduto, 
@@ -110,7 +96,8 @@ class MedicamentosDAO(BaseDAO):
                         quantidadecomercial,
                         valorunitariocomercial
                     FROM transactions t
-                    WHERE LOWER(t.clean) LIKE LOWER('%{clean}%')
+                    {condition}
                     LIMIT {limit}
                     OFFSET {offset}"""
+
         return self.select(query)
