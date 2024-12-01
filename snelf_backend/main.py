@@ -7,7 +7,6 @@ from fastapi.responses import StreamingResponse
 import pandas as pd
 from utils.files import ManipuladorDeArquivos
 from modelos.http_model import HttpResponse
-from importar_csv_para_sql import fill_db_tables, get_medicines_from_label, getTransactionsFromClean, get_transactions_from_product
 from pre_processamento import inicia_pre_processamento
 from servicos.fasttext import ManipuladorFasttext
 from servicos.medicamentos import MedicamentosServico

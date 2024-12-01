@@ -1,9 +1,5 @@
-from pathlib import Path
-import sqlite3
 import pandas as pd
-import psycopg2
 import pdb
-from datetime import datetime
 from queries import insert_produtos, insert_products_transactions, insert_classes, insert_products_classes
 from infra.DBConnection import DBConnection
 db = DBConnection()

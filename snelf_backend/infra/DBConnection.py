@@ -29,7 +29,7 @@ class DBConnection:
                         print("back conectado ao banco pela porta 54320")
                     except Exception as e2:
                         print("conexão com o banco na porta 54320 falhou")
-                        tryToConnect()
+                        # tryToConnect()
 
             tryToConnect()
             cls._self.connection.autocommit = True

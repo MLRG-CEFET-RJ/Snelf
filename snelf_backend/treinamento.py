@@ -1,11 +1,8 @@
 import os
-import sys
 import threading
-import time
 
 from _model import treinar_modelo
 from _model.treinar_modelo import pararTreinamentoModelo
-from _pre_processamento import init_pre_processamento
 from _pre_processamento.controleDeTreinamento import ControleDeTreinamento
 
 
