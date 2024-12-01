@@ -114,7 +114,7 @@ def init_set(descricao, ean, dataset_name):
 
 def main():
     args = argument_parser()
-    # TODO: validar args
+    #  validar args
 
     # inicializando o log
     init_log(args.dataset_name, args.use_col)

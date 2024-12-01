@@ -43,11 +43,8 @@ class MedicamentosRepositorio:
     def inserir_transacoes(self, transacoes):
         return self.dao.inserir_transacoes(transacoes)
     
-    def consultar_transacoes_pela_descricao(self, busca, offset, limit):
-        return self.dao.consultar_transacoes_pela_descricao(busca, offset, limit)
-    
     def consultar_medicametos_pela_label(self, label, offset, limit):
         return self.dao.consultar_medicamentos_pela_label(label, offset, limit)
     
-    def consultar_medicamentos_pelo_clean(self, clean, offset, limit):
-        return self.dao.consultar_medicamentos_pelo_clean(clean, offset, limit)
+    def consultar_medicamentos_pelo_tipo_de_busca(self, type_search, target, offset, limit):
+        return self.dao.consultar_medicamentos_pelo_tipo_de_busca(type_search, target, offset, limit)

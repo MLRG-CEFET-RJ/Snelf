@@ -102,25 +102,6 @@ class MedicamentosServico():
             self.repositorio.inserir_produtos_classes(input_products_classes_array)
         except Exception as erro:
             raise erro
-           
-    def consultar_transacoes_pela_descricao(self, busca: str, offset: int, limit: int):
-        transacoes_db = self.repositorio.consultar_transacoes_pela_descricao(busca, offset, limit)
-
-        if not transacoes_db:
-            print("Nenhuma transação encontrada.")
-            return []
-
-        transacoes = [
-            [
-                transacao[0],
-                transacao[1],
-                transacao[2],
-                transacao[3],
-                transacao[4],
-            ]
-            for transacao in transacoes_db            
-        ]
-        return transacoes
 
     def obter_medicamentos_pela_label(self, label, offset, limit):
         medicamentos_db = self.repositorio.consultar_medicametos_pela_label(label, offset, limit)
@@ -142,8 +123,12 @@ class MedicamentosServico():
             
         return medicamentos
     
-    def consultar_transacoes_pelo_clean(self, busca: str, offset: int, limit):
-        medicamentos_db = self.repositorio.consultar_medicamentos_pelo_clean(clean=busca, offset=offset, limit=limit)
+    
+    def consultar_transacoes_pelo_tipo_de_busca(self, type_search:str, target: str, offset: int, limit):
+        medicamentos_db = self.repositorio.consultar_medicamentos_pelo_tipo_de_busca(type_search, target, offset, limit)
+        
+        if not medicamentos_db:
+            return []
         
         medicamentos = [
             [

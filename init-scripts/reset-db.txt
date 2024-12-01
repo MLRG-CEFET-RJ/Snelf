@@ -1,0 +1,14 @@
+DO
+$$
+DECLARE
+    table_name text;
+BEGIN
+    -- Loop through each table in the specified schema
+    FOR table_name IN
+        SELECT tablename FROM pg_tables WHERE schemaname = 'public'
+    LOOP
+        -- Truncate each table with restart identity and cascade to maintain referential integrity
+        EXECUTE format('TRUNCATE TABLE public.%I RESTART IDENTITY CASCADE;', table_name);
+    END LOOP;
+END;
+$$;

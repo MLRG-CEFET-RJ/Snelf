@@ -2,7 +2,7 @@ import { BASE_URL } from "../../config/config"
 import axios, { AxiosInstance } from "axios"
 
 export class TrainningService {
-    private baseUrl: string = `${BASE_URL}/treinamento`
+    private baseUrl: string = `${BASE_URL}`
     private axiosInstace: AxiosInstance
     constructor() {
         this.axiosInstace = axios.create({ 
@@ -16,7 +16,7 @@ export class TrainningService {
     async startTrainning(csvFile?: File, forceRestart?: boolean) {
         try {
             const response = await this.axiosInstace.post(
-                `/treinamentos/descricao`,
+                `/treinamento/treinar-modelo`,
                 {
                     csv_file: csvFile,
                     force_restart: forceRestart
