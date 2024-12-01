@@ -1,10 +1,10 @@
+import shutil
 from _pre_processamento.controleDeTreinamento import ControleDeTreinamento
 
 
 def run(forceRestart = False):
     from . import pre_proc_anvisa
     from _data_augmentation import init_data_augmentation
-    from _move_file import move_file
     from . import pre_proc_anvisa_augmented
     from . import pre_proc_medicamentos_augmented
     from . import mapeamento_ean_chave
@@ -34,11 +34,11 @@ def run(forceRestart = False):
     # MOVE FILES
     if ControleDeTreinamento.running:
         if ("pre_proc_anvisa finalizado" in logger.lastLine()):
-            move_file.move("datasets/medicamentos/medicamentos_aumentado.csv", "datasets/medicamentos/augmented/medicamentos_aumentado.csv")
+            shutil.move("datasets/medicamentos/medicamentos_aumentado.csv", "datasets/medicamentos/augmented/medicamentos_aumentado.csv")
             logger.log("move_file 1")
-            move_file.move("datasets/anvisa/anvisa_principio_ativo_aumentado.csv", "datasets/anvisa/augmented/anvisa_principio_ativo_aumentado.csv")
+            shutil.move("datasets/anvisa/anvisa_principio_ativo_aumentado.csv", "datasets/anvisa/augmented/anvisa_principio_ativo_aumentado.csv")
             logger.log("move_file 2")
-            move_file.move("datasets/anvisa/anvisa_produto_aumentado.csv", "datasets/anvisa/augmented/anvisa_produto_aumentado.csv")
+            shutil.move("datasets/anvisa/anvisa_produto_aumentado.csv", "datasets/anvisa/augmented/anvisa_produto_aumentado.csv")
             logger.log("move_file 3")
 
     # PRE PROCESSAMENTO 2

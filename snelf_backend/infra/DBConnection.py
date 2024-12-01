@@ -1,4 +1,7 @@
 import psycopg2 # type: ignore
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 class DBConnection:
     _self = None
@@ -8,12 +11,12 @@ class DBConnection:
     def __new__(cls):
         if cls._self is None:
             cls._self = super().__new__(cls)
-            #TODO:incluir .env para configurar as variaveis de ambiente de banco de dados
-            database = "snelf"
-            user = "postgres"
-            password = "ffc1902"
-            host = "localhost"
-            port = "5432" 
+
+            database = os.getenv('DB_DATABASE')
+            user = os.getenv('DB_USER')
+            password = os.getenv('DB_PASSWORD')
+            host = os.getenv('DB_HOST')
+            port = os.getenv('DB_PORT')
 
             def tryToConnect():
                 try:
@@ -26,7 +29,7 @@ class DBConnection:
                         print("back conectado ao banco pela porta 54320")
                     except Exception as e2:
                         print("conexão com o banco na porta 54320 falhou")
-                        tryToConnect()
+                        # tryToConnect()
 
             tryToConnect()
             cls._self.connection.autocommit = True

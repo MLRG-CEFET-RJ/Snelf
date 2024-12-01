@@ -3,7 +3,6 @@ from log import register_log
 import requests
 from bs4 import BeautifulSoup
 import re
-import urllib.parse
 from urllib.parse import urlparse
 import time
 from datetime import datetime

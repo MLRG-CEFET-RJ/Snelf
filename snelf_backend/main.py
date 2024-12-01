@@ -7,6 +7,7 @@ from http import HTTPStatus
 from treinamento import Treinamento 
 from modelos.http_model import HttpResponse
 from utils.files import ManipuladorDeArquivos
+from pre_processamento import inicia_pre_processamento
 from servicos.fasttext import ManipuladorFasttext
 from servicos.medicamentos import MedicamentosServico
 from servicos.suprimentos import SuprimentosServico
