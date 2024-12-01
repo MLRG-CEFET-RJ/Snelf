@@ -10,7 +10,7 @@ O SNELF foi desenvolvido utilizando arquitetura REST, utilizando o framework Pyt
 
 Cabe ressaltar que, na pasta 'dumps do postgresql', existirão diversas versões do banco de dados, caso seja necessário restaurar alguma versão específica.
 
-## Como utilizar?
+## Como utilizar ambiente UAT:
 
 ### Passos
 #### 1. Clonar o repositório em uma pasta dentro de um WSL
@@ -36,6 +36,28 @@ Cabe ressaltar que, na pasta 'dumps do postgresql', existirão diversas versões
     Password: testejp
 ##### 8.3 Acessar o site
     Acessar localhost:7767 para abrir a página inicial do Snelf.
+
+## Como utilizar ambiente local:
+### Passos
+#### 1. Rodar backend
+##### API para importação do CSV
+Pré requisitos:
+`Python 3.x` e `pip`
+
+- `pip install "fastapi[all]"`
+- `uvicorn main:app --reload` || `python -m uvicorn main:app --reload`
+
+A API subirá na porta 8000
+
+##### Libs adicionais
+pip install googlesearch-python
+pip install selectorlib
+
+#### 2. Rodar frontend
+
+- `yarn build`
+- `npm install`
+- `run npm start`
 
 #### 9. Primeiro acesso ao sistema
 Caso seja seu primeiro acesso ao sistema, seguir todos os passos desta seção.
