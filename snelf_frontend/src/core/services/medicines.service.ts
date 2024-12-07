@@ -37,9 +37,9 @@ export class MedicinesService {
     limit: number
   ): Promise<any> {
     try {
-      console.log("consultar");
       const response = await this.axiosInstace.get(
-        `/medicamentos/buscar-produtos?filters${filters}&offset=${offset}&limit=${limit}`
+        `/medicamentos/buscar-produtos?offset=${offset}&limit=${limit}`,
+        { params: filters }
       );
       console.log(response.data);
       return response.data;
