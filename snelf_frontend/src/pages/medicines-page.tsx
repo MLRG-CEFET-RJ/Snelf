@@ -11,21 +11,27 @@ export const MedicinesPage = observer(() => {
   return (
     <div
       style={{
-        width: "1700px",
-        marginTop: 100,
-        marginLeft: "auto",
-        marginRight: "auto",
+        width: "100vw",
+        display: "flex",
+        justifyContent: "center",
       }}
     >
-      <MedicinesFilters />
-      <TableComponent
-        columns={columns || []}
-        rows={rows || []}
-        offset={offset}
-        limit={limit}
-        onPageChange={(newOffset) => setOffset?.(newOffset)}
-        onRowsPerPageChange={(newLimit) => setLimit?.(newLimit)}
-      />
+      <div
+        style={{
+          marginTop: 100,
+          width: "80vw",
+        }}
+      >
+        <MedicinesFilters />
+        <TableComponent
+          columns={columns || []}
+          rows={rows || []}
+          offset={offset}
+          limit={limit}
+          onPageChange={(newOffset) => setOffset?.(newOffset)}
+          onRowsPerPageChange={(newLimit) => setLimit?.(newLimit)}
+        />
+      </div>
     </div>
   );
 });
