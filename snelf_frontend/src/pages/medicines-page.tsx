@@ -8,6 +8,8 @@ export const MedicinesPage = observer(() => {
   const { rows, columns, offset, limit, setOffset, setLimit } =
     medicinesStore || {};
 
+  // console.log(rows);
+
   return (
     <div
       style={{

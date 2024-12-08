@@ -78,7 +78,7 @@ class MedicinesStore {
         limit
       );
       runInAction(() => {
-        this.setRows(response.medicamentos);
+        this.setRows(response);
       });
     } catch (error) {
       runInAction(() => {
