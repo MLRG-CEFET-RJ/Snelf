@@ -87,6 +87,7 @@ class MedicamentosDAO(BaseDAO):
         return self.select(query)
     
     def consultar_medicamentos_pelo_tipo_de_busca(self, filters, offset, limit):
+        
         column_mapping = {
             "clean": "clean",
             "descricaoProduto": "descricaoproduto",
@@ -97,12 +98,12 @@ class MedicamentosDAO(BaseDAO):
         conditions = []
         
         for attr, column in column_mapping.items():
-            filter_value = getattr(filters, attr, None)
+            filter_value = filters[attr]
             if filter_value:
                 if isinstance(filter_value, str):
-                    conditions.append(f"LOWER(t.{column}) LIKE LOWER(:{attr})")
+                    conditions.append(f"LOWER(t.{column}) LIKE LOWER('{filter_value}')")
                 else:
-                    conditions.append(f"t.{column} = :{attr}")
+                    conditions.append(f"t.{column} = {filter_value}")
         
         condition_str = " WHERE " + " AND ".join(conditions) if conditions else ""
         
@@ -115,14 +116,15 @@ class MedicamentosDAO(BaseDAO):
                 valorunitariocomercial
             FROM transactions t
             {condition_str}
-            LIMIT :limit OFFSET :offset
+            LIMIT {limit} OFFSET {offset}
         """
-
+        clean = filters.get("clean")
+        descricaoProduto = filters.get("descricaoProduto")
         params = {
-            "clean": f"%{filters.clean}%" if filters.clean else None,
-            "descricaoProduto": f"%{filters.descricaoProduto}%" if filters.descricaoProduto else None,
-            "unidadeComercial": filters.unidadeComercial,
-            "valorUnitarioComercial": filters.valorUnitarioComercial,
+            "clean": f"%{clean}%" if filters["clean"] else None,
+            "descricaoProduto": f"%{descricaoProduto}%" if filters["descricaoProduto"] else None,
+            "unidadeComercial": filters["unidadeComercial"] if filters["unidadeComercial"] else None,
+            "valorUnitarioComercial": filters["valorUnitarioComercial"] if filters["valorUnitarioComercial"] else None,
             "limit": limit,
             "offset": offset
         }

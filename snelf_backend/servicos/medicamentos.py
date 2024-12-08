@@ -140,5 +140,4 @@ class MedicamentosServico():
             ]
             for medicamento in medicamentos_db
         ]
-        
         return medicamentos

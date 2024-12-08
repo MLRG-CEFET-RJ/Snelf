@@ -15,7 +15,7 @@ from servicos.suprimentos import SuprimentosServico
 
 from pre_processamento import inicia_pre_processamento
 
-import fasttext
+# import fasttext
 
 app = FastAPI()
 
@@ -97,11 +97,18 @@ async def obter_status_treinamento():
         return HTTPException(detail='Ocorreu um erro ao tentar obter o status do treinamento', status_code=500)
 
 @app.get("/medicamentos/buscar-produtos")
-async def search_medicines(filters, offset = 0, limit = 10):
+async def search_medicines(clean, descricaoProduto, unidadeComercial, valorUnitarioComercial, offset = 0, limit = 10):
     try:
+        filters = {
+            'clean': clean,
+            'descricaoProduto': descricaoProduto, 
+            'unidadeComercial': unidadeComercial, 
+            'valorUnitarioComercial': valorUnitarioComercial, 
+        }
         service = MedicamentosServico()
         medicamentos = service.search_medicines(filters, offset, limit)
-        return { medicamentos }
+        print(medicamentos)
+        return medicamentos 
     except Exception as error:
         print(f'ERROR :: search_medicines :: {error}')
         raise HTTPException(status_code=500, detail='Ocorreu um erro ao tentar consultar o clean dos medicamentos')
