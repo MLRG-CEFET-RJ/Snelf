@@ -70,9 +70,12 @@ class MedicinesStore {
   ) => {
     this.setLoading(true);
     this.setError(null);
-    let response: any = null;
+
+    // Limpa os dados de rows antes de carregar novos
+    this.setRows([]);
+
     try {
-      response = await this.baseService.consultarMedicamentos(
+      const response = await this.baseService.consultarMedicamentos(
         filters,
         offset,
         limit
