@@ -1,2 +1,2 @@
-docker: error during connect: Head "http://%2F%2F.%2Fpipe%2FdockerDesktopLinuxEngine/_ping": open //./pipe/dockerDesktopLinuxEngine: O sistema não pode encontrar o arquivo especificado.
+docker: Cannot connect to the Docker daemon at unix:///home/stevan/.docker/desktop/docker.sock. Is the docker daemon running?.
 See 'docker run --help'.

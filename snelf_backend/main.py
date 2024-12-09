@@ -15,7 +15,7 @@ from servicos.suprimentos import SuprimentosServico
 
 from pre_processamento import inicia_pre_processamento
 
-# import fasttext
+import fasttext
 
 app = FastAPI()
 
