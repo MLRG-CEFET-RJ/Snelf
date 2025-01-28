@@ -1,9 +1,10 @@
 import { makeObservable, observable, action, runInAction } from "mobx";
 import { MedicinesService } from "../../core/services/medicines.service";
-import { FilterType } from "@/types/types";
+import { FilterType } from "../../types/types";
 
 class MedicinesStore {
   rows: string[][] = [];
+  rowsCount: number | undefined;
   isLoading: boolean = false;
   error: string | null = null;
   limit: number = 10;
@@ -15,6 +16,7 @@ class MedicinesStore {
   constructor() {
     makeObservable(this, {
       rows: observable,
+      rowsCount: observable,
       isLoading: observable,
       error: observable,
       limit: observable,
@@ -51,6 +53,10 @@ class MedicinesStore {
     this.rows = rows;
   };
 
+  setRowsCount = (rowsCount: number) => {
+    this.rowsCount = rowsCount;
+  };
+
   setColumns = (nextColumns: string[]) => {
     this.columns = nextColumns;
   };
@@ -71,7 +77,6 @@ class MedicinesStore {
     this.setLoading(true);
     this.setError(null);
 
-    // Limpa os dados de rows antes de carregar novos
     this.setRows([]);
 
     try {
@@ -80,6 +85,7 @@ class MedicinesStore {
         offset,
         limit
       );
+      this.quantidadeRegistros()
       runInAction(() => {
         this.setRows(response);
       });
@@ -111,6 +117,14 @@ class MedicinesStore {
         this.setLoading(false);
       });
     }
+  };
+
+  quantidadeRegistros = async () => {
+    const qtdRegistros = await this.baseService.totalRegistros();
+    runInAction(() => {
+      this.setRowsCount(qtdRegistros);
+    });
+    return;
   };
 }
 

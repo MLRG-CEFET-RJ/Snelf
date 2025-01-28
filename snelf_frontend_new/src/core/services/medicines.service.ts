@@ -47,4 +47,11 @@ export class MedicinesService {
       throw error;
     }
   }
+
+  async totalRegistros(): Promise<any> {
+    const response = await this.axiosInstace.get(
+      "/medicamentos/quantidade-resgistros"
+    );
+    return response.data;
+  }
 }

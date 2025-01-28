@@ -2,13 +2,42 @@ import useStore from "../core/mobx/use-store";
 import { observer } from "mobx-react-lite";
 import { TableComponent } from "../components/table";
 import { MedicinesFilters } from "../components/medicines-filters/medicines-filter";
+import { useEffect } from "react";
 
 export const MedicinesPage = observer(() => {
   const { medicinesStore } = useStore();
-  const { rows, columns, offset, limit, setOffset, setLimit } =
+  const { rows, columns, offset, limit, rowsCount, setOffset, setLimit } =
     medicinesStore || {};
+  const onPageChange = async (page: number) => {
+    await medicinesStore.loadTableRows(
+      {
+        clean: "",
+        descricaoProduto: "",
+        unidadeComercial: "",
+        valorUnitarioComercial: "",
+      },
+      offset,
+      limit
+    );
+    setOffset?.(page);
+  };
 
-  // console.log(rows);
+  useEffect(() => {
+    const fetch = async () => {
+      await medicinesStore.loadTableRows(
+        {
+          clean: "",
+          descricaoProduto: "",
+          unidadeComercial: "",
+          valorUnitarioComercial: "",
+        },
+        offset,
+        limit
+      );
+    };
+
+    fetch();
+  }, [offset, limit]);
 
   return (
     <div
@@ -28,9 +57,10 @@ export const MedicinesPage = observer(() => {
         <TableComponent
           columns={columns || []}
           rows={rows || []}
+          rowsCount={rowsCount ? Math.ceil(rowsCount / limit) : 0}
           offset={offset}
           limit={limit}
-          onPageChange={(newOffset) => setOffset?.(newOffset)}
+          onPageChange={(newOffset) => onPageChange(newOffset)}
           onRowsPerPageChange={(newLimit) => setLimit?.(newLimit)}
         />
       </div>

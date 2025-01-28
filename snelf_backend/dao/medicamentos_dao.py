@@ -132,4 +132,12 @@ class MedicamentosDAO(BaseDAO):
         params = {key: value for key, value in params.items() if value is not None}
 
         return self.select(query, params)
+    
+    def total_registros(self):
+        query = f"""
+            SELECT COUNT(*) as total FROM transactions
+        """
+
+        return self.select(query);
+        
 

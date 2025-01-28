@@ -113,6 +113,12 @@ async def search_medicines(clean, descricaoProduto, unidadeComercial, valorUnita
         print(f'ERROR :: search_medicines :: {error}')
         raise HTTPException(status_code=500, detail='Ocorreu um erro ao tentar consultar o clean dos medicamentos')
     
+@app.get('/medicamentos/quantidade-resgistros')
+async def total_medicamentos():
+    service = MedicamentosServico()
+    registros = service.medicines_quantity()
+    return registros
+    
 @app.get("/suprimentos/descricao")
 async def consultar_descricao(busca, offset = 0, limit = 10):
     try:

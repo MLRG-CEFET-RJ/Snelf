@@ -48,3 +48,6 @@ class MedicamentosRepositorio:
     
     def consultar_medicamentos_pelo_tipo_de_busca(self, filters, offset, limit):
         return self.dao.consultar_medicamentos_pelo_tipo_de_busca(filters, offset, limit)
+    
+    def total_registros(self):
+        return self.dao.total_registros();

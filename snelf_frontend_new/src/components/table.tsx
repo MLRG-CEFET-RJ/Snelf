@@ -13,40 +13,59 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import { TableHead } from "@mui/material";
-import { observer } from 'mobx-react-lite';
+import { observer } from "mobx-react-lite";
 
 interface TablePaginationActionsProps {
   count: number;
   page: number;
   rowsPerPage: number;
-  onPageChange: (event: React.MouseEvent<HTMLButtonElement>, newPage: number) => void;
+  onPageChange: (
+    event: React.MouseEvent<HTMLButtonElement>,
+    newPage: number
+  ) => void;
 }
 
 function TablePaginationActions(props: TablePaginationActionsProps) {
   const { count, page, rowsPerPage, onPageChange } = props;
 
-  const handleFirstPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleFirstPageButtonClick = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     onPageChange(event, 0);
   };
 
-  const handleBackButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleBackButtonClick = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     onPageChange(event, page - 1);
   };
 
-  const handleNextButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleNextButtonClick = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     onPageChange(event, page + 1);
   };
 
-  const handleLastPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleLastPageButtonClick = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
   };
 
   return (
     <Box sx={{ flexShrink: 0, ml: 2.5 }}>
-      <IconButton onClick={handleFirstPageButtonClick} disabled={page === 0} aria-label="first page">
+      <IconButton
+        onClick={handleFirstPageButtonClick}
+        disabled={page === 0}
+        aria-label="first page"
+      >
         <FirstPageIcon />
       </IconButton>
-      <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label="previous page">
+      <IconButton
+        onClick={handleBackButtonClick}
+        disabled={page === 0}
+        aria-label="previous page"
+      >
         <KeyboardArrowLeft />
       </IconButton>
       <IconButton
@@ -69,6 +88,7 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 
 interface TableProps {
   rows: string[][];
+  rowsCount: number;
   columns: string[];
   offset: number;
   limit: number;
@@ -76,67 +96,80 @@ interface TableProps {
   onRowsPerPageChange: (newLimit: number) => void;
 }
 
-export const TableComponent = observer(({
-  rows,
-  columns,
-  offset,
-  limit,
-  onPageChange,
-  onRowsPerPageChange,
-}: TableProps) => {
-  const page = Math.floor(offset / limit);
-  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
-    onPageChange(newPage * limit);
-  };
+export const TableComponent = observer(
+  ({
+    rows,
+    rowsCount,
+    columns,
+    offset,
+    limit,
+    onPageChange,
+    onRowsPerPageChange,
+  }: TableProps) => {
+    const page = Math.floor(offset / limit);
+    const handleChangePage = (
+      event: React.MouseEvent<HTMLButtonElement> | null,
+      newPage: number
+    ) => {
+      onPageChange(newPage * limit);
+    };
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const newLimit = parseInt(event.target.value, 10);
-    onRowsPerPageChange(newLimit);
-    onPageChange(0);
-  };
+    const handleChangeRowsPerPage = (
+      event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+      const newLimit = parseInt(event.target.value, 10);
+      onRowsPerPageChange(newLimit);
+      onPageChange(0);
+    };
 
-  return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-        <TableHead>
-          <TableRow>
-            {columns.map((column) => (
-              <TableCell key={column} width={10}>{column}</TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {(limit > 0 ? rows.slice(page * limit, page * limit + limit) : rows).map((row) => (
-            <TableRow key={row[0]}>
-              {row.map((field, index) => (
-                <TableCell key={index}>{field}</TableCell>
+    return (
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+          <TableHead>
+            <TableRow>
+              {columns.map((column) => (
+                <TableCell key={column} width={10}>
+                  {column}
+                </TableCell>
               ))}
             </TableRow>
-          ))}
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              colSpan={3}
-              count={rows.length}
-              rowsPerPage={limit}
-              page={page}
-              slotProps={{
-                select: {
-                  inputProps: {
-                    "aria-label": "rows per page",
+          </TableHead>
+          <TableBody>
+            {(limit > 0
+              ? rows.slice(page * limit, page * limit + limit)
+              : rows
+            ).map((row) => (
+              <TableRow key={row[0]}>
+                {row.map((field, index) => (
+                  <TableCell key={index}>{field}</TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25]}
+                colSpan={3}
+                count={rowsCount}
+                rowsPerPage={limit}
+                page={page}
+                slotProps={{
+                  select: {
+                    inputProps: {
+                      "aria-label": "rows per page",
+                    },
+                    native: true,
                   },
-                  native: true,
-                },
-              }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
-      </Table>
-    </TableContainer>
-  );
-})
+                }}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+              />
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </TableContainer>
+    );
+  }
+);

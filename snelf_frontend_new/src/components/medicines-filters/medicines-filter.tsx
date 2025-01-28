@@ -1,5 +1,5 @@
 import useStore from "../../core/mobx/use-store";
-import { FilterType } from "@/types/types";
+import { FilterType } from "../../types/types";
 import { Button, TextField } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 

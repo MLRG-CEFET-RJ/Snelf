@@ -141,3 +141,10 @@ class MedicamentosServico():
             for medicamento in medicamentos_db
         ]
         return medicamentos
+    
+    def medicines_quantity(self):
+        medicamentos_db = self.repositorio.total_registros()
+
+        qtd_registros = medicamentos_db[0][0]
+
+        return qtd_registros
