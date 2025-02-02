@@ -41,10 +41,17 @@ export class MedicinesService {
         `/medicamentos/buscar-produtos?offset=${offset}&limit=${limit}`,
         { params: filters }
       );
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     } catch (error) {
       throw error;
     }
+  }
+
+  async totalRegistros(): Promise<any> {
+    const response = await this.axiosInstace.get(
+      "/medicamentos/quantidade-resgistros"
+    );
+    return response.data;
   }
 }

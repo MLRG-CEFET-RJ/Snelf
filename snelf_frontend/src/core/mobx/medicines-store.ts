@@ -1,9 +1,10 @@
 import { makeObservable, observable, action, runInAction } from "mobx";
 import { MedicinesService } from "../../core/services/medicines.service";
-import { FilterType } from "@/types/types";
+import { FilterType } from "../../types/types";
 
 class MedicinesStore {
   rows: string[][] = [];
+  rowsCount: number | undefined;
   isLoading: boolean = false;
   error: string | null = null;
   limit: number = 10;
@@ -11,16 +12,25 @@ class MedicinesStore {
   status: string | null = null;
   columns: string[] = [];
   private baseService: MedicinesService;
+  clean: string | null = null;
+  descricaoProduto: string | null = null;
+  unidadeComercial: string | null = null;
+  valorUnitarioComercial: string | null = null;
 
   constructor() {
     makeObservable(this, {
       rows: observable,
+      rowsCount: observable,
       isLoading: observable,
       error: observable,
       limit: observable,
       offset: observable,
       status: observable,
       columns: observable,
+      clean: observable,
+      descricaoProduto: observable,
+      unidadeComercial: observable,
+      valorUnitarioComercial: observable,
       setError: action,
       setLoading: action,
       setStatus: action,
@@ -33,6 +43,22 @@ class MedicinesStore {
     });
 
     this.baseService = new MedicinesService();
+  }
+
+  setClean = (clean: string) => {
+    this.clean = clean
+  }
+
+  setDescricaoProduto = (descricaoProduto: string) => {
+    this.clean = descricaoProduto
+  }
+
+  setUnidadeComercial = (unidadeComercial: string) => {
+    this.clean = unidadeComercial
+  }
+
+  setValorUnitarioComercial = (valorUnitarioComercial: string) => {
+    this.clean = valorUnitarioComercial
   }
 
   setLoading = (isLoading: boolean) => {
@@ -49,6 +75,10 @@ class MedicinesStore {
 
   setRows = (rows: string[][]) => {
     this.rows = rows;
+  };
+
+  setRowsCount = (rowsCount: number) => {
+    this.rowsCount = rowsCount;
   };
 
   setColumns = (nextColumns: string[]) => {
@@ -70,13 +100,17 @@ class MedicinesStore {
   ) => {
     this.setLoading(true);
     this.setError(null);
-    let response: any = null;
+
+    this.setRows([]);
+
     try {
-      response = await this.baseService.consultarMedicamentos(
+      const response = await this.baseService.consultarMedicamentos(
         filters,
         offset,
         limit
       );
+      console.log(response)
+      this.quantidadeRegistros()
       runInAction(() => {
         this.setRows(response);
       });
@@ -108,6 +142,14 @@ class MedicinesStore {
         this.setLoading(false);
       });
     }
+  };
+
+  quantidadeRegistros = async () => {
+    const qtdRegistros = await this.baseService.totalRegistros();
+    runInAction(() => {
+      this.setRowsCount(qtdRegistros);
+    });
+    return;
   };
 }
 

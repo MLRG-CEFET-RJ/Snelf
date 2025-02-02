@@ -1,10 +1,11 @@
 import useStore from "../../core/mobx/use-store";
-import { FilterType } from "@/types/types";
+import { FilterType } from "../../types/types";
 import { Button, TextField } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 export const MedicinesFilters = () => {
   const { medicinesStore } = useStore();
+  const { setClean, setDescricaoProduto, setUnidadeComercial, setValorUnitarioComercial } = medicinesStore
   const { control, handleSubmit } = useForm<FilterType>({
     defaultValues: {
       clean: "",
@@ -15,6 +16,10 @@ export const MedicinesFilters = () => {
   });
 
   const onSubmit: SubmitHandler<FilterType> = async (data) => {
+    setClean(data.clean)
+    setDescricaoProduto(data.descricaoProduto)
+    setUnidadeComercial(data.unidadeComercial)
+    setValorUnitarioComercial(data.valorUnitarioComercial)
     await medicinesStore.loadTableRows(data);
   };
 
