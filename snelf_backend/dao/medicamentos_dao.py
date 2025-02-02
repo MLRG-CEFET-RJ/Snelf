@@ -133,9 +133,29 @@ class MedicamentosDAO(BaseDAO):
 
         return self.select(query, params)
     
-    def total_registros(self):
+    def total_registros(self, filters):
+        column_mapping = {
+            "clean": "clean",
+            "descricaoProduto": "descricaoproduto",
+            "unidadeComercial": "unidadecomercial",
+            "valorUnitarioComercial": "valorunitariocomercial"
+        }
+
+        conditions = []
+        
+        for attr, column in column_mapping.items():
+            filter_value = filters[attr]
+            if filter_value:
+                if isinstance(filter_value, str):
+                    conditions.append(f"LOWER(t.{column}) LIKE LOWER('{filter_value}')")
+                else:
+                    conditions.append(f"t.{column} = {filter_value}")
+
+        condition_str = " WHERE " + " AND ".join(conditions) if conditions else ""
+        
+
         query = f"""
-            SELECT COUNT(*) as total FROM transactions
+            SELECT COUNT(*) as total FROM transactions t{condition_str}
         """
 
         return self.select(query);

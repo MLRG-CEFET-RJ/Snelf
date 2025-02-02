@@ -1,4 +1,4 @@
-import { FilterType } from "@/types/types";
+import { FilterType } from "../../types/types";
 import { BASE_URL } from "../../config/config";
 import axios, { AxiosInstance } from "axios";
 
@@ -48,9 +48,10 @@ export class MedicinesService {
     }
   }
 
-  async totalRegistros(): Promise<any> {
+  async totalRegistros(filters: FilterType): Promise<any> {
     const response = await this.axiosInstace.get(
-      "/medicamentos/quantidade-resgistros"
+      "/medicamentos/quantidade-resgistros",
+      { params: filters }
     );
     return response.data;
   }

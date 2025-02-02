@@ -108,13 +108,12 @@ class MedicinesStore {
     this.setRows([]);
 
     try {
-      console.log(filters);
       const response = await this.baseService.consultarMedicamentos(
         filters,
         offset,
         limit
       );
-      this.quantidadeRegistros();
+      this.quantidadeRegistros(filters);
       runInAction(() => {
         this.setRows(response);
       });
@@ -148,8 +147,9 @@ class MedicinesStore {
     }
   };
 
-  quantidadeRegistros = async () => {
-    const qtdRegistros = await this.baseService.totalRegistros();
+  quantidadeRegistros = async (filters: FilterType) => {
+    const qtdRegistros = await this.baseService.totalRegistros(filters);
+    console.log(qtdRegistros);
     runInAction(() => {
       this.setRowsCount(qtdRegistros);
     });

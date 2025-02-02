@@ -13,6 +13,7 @@ from servicos.fasttext import ManipuladorFasttext
 from servicos.medicamentos import MedicamentosServico
 from servicos.suprimentos import SuprimentosServico
 
+
 from pre_processamento import inicia_pre_processamento
 
 import fasttext
@@ -107,16 +108,23 @@ async def search_medicines(clean, descricaoProduto, unidadeComercial, valorUnita
         }
         service = MedicamentosServico()
         medicamentos = service.search_medicines(filters, offset, limit)
-        print(medicamentos)
         return medicamentos 
     except Exception as error:
         print(f'ERROR :: search_medicines :: {error}')
         raise HTTPException(status_code=500, detail='Ocorreu um erro ao tentar consultar o clean dos medicamentos')
     
 @app.get('/medicamentos/quantidade-resgistros')
-async def total_medicamentos():
+async def total_medicamentos(clean, descricaoProduto, unidadeComercial, valorUnitarioComercial):
     service = MedicamentosServico()
-    registros = service.medicines_quantity()
+
+    filters = {
+            'clean': clean,
+            'descricaoProduto': descricaoProduto, 
+            'unidadeComercial': unidadeComercial, 
+            'valorUnitarioComercial': valorUnitarioComercial, 
+        }
+    
+    registros = service.medicines_quantity(filters)
     return registros
     
 @app.get("/suprimentos/descricao")
