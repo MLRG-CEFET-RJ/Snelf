@@ -6,16 +6,27 @@ import Table from "../components/table";
 
 export const MedicinesPage = observer(() => {
   const { medicinesStore } = useStore();
-  const { rows, columns, offset, limit, rowsCount, setOffset, setLimit, clean, descricaoProduto, unidadeComercial, valorUnitarioComercial } = medicinesStore || {};
-
+  const {
+    rows,
+    columns,
+    offset,
+    limit,
+    rowsCount,
+    setOffset,
+    setLimit,
+    clean,
+    descricaoProduto,
+    unidadeComercial,
+    valorUnitarioComercial,
+  } = medicinesStore || {};
   useEffect(() => {
     const fetch = async () => {
       await medicinesStore.loadTableRows(
         {
-          clean: clean || "",
-          descricaoProduto: descricaoProduto || "",
-          unidadeComercial: unidadeComercial || "",
-          valorUnitarioComercial: valorUnitarioComercial || "",
+          clean: clean,
+          descricaoProduto: descricaoProduto,
+          unidadeComercial: unidadeComercial,
+          valorUnitarioComercial: valorUnitarioComercial,
         },
         offset,
         limit
@@ -23,13 +34,22 @@ export const MedicinesPage = observer(() => {
     };
 
     fetch();
-  }, [offset, limit, medicinesStore, clean, descricaoProduto, unidadeComercial, valorUnitarioComercial]);
+  }, [
+    offset,
+    limit,
+    clean,
+    descricaoProduto,
+    unidadeComercial,
+    valorUnitarioComercial,
+  ]);
 
   const handleChangePage = (_event: unknown, newPage: number) => {
     setOffset(newPage * limit);
   };
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setLimit(parseInt(event.target.value, 10));
     setOffset(0);
   };
@@ -49,13 +69,13 @@ export const MedicinesPage = observer(() => {
         }}
       >
         <MedicinesFilters />
-        <Table 
-          columns={columns} 
-          rows={rows} 
-          count={rowsCount} 
-          offset={offset} 
-          limit={limit} 
-          handleChangePage={handleChangePage} 
+        <Table
+          columns={columns}
+          rows={rows}
+          count={rowsCount}
+          offset={offset}
+          limit={limit}
+          handleChangePage={handleChangePage}
           handleChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </div>

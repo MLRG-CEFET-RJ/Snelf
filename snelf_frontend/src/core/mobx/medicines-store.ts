@@ -12,10 +12,10 @@ class MedicinesStore {
   status: string | null = null;
   columns: string[] = [];
   private baseService: MedicinesService;
-  clean: string | null = null;
-  descricaoProduto: string | null = null;
-  unidadeComercial: string | null = null;
-  valorUnitarioComercial: string | null = null;
+  clean: string = "";
+  descricaoProduto: string = "";
+  unidadeComercial: string = "";
+  valorUnitarioComercial: string = "";
 
   constructor() {
     makeObservable(this, {
@@ -40,26 +40,30 @@ class MedicinesStore {
       setLimit: action,
       loadTableRows: action,
       importMedicinesCsv: action,
+      setClean: action,
+      setDescricaoProduto: action,
+      setUnidadeComercial: action,
+      setValorUnitarioComercial: action,
     });
 
     this.baseService = new MedicinesService();
   }
 
   setClean = (clean: string) => {
-    this.clean = clean
-  }
+    this.clean = clean;
+  };
 
   setDescricaoProduto = (descricaoProduto: string) => {
-    this.clean = descricaoProduto
-  }
+    this.descricaoProduto = descricaoProduto;
+  };
 
   setUnidadeComercial = (unidadeComercial: string) => {
-    this.clean = unidadeComercial
-  }
+    this.unidadeComercial = unidadeComercial;
+  };
 
   setValorUnitarioComercial = (valorUnitarioComercial: string) => {
-    this.clean = valorUnitarioComercial
-  }
+    this.valorUnitarioComercial = valorUnitarioComercial;
+  };
 
   setLoading = (isLoading: boolean) => {
     this.isLoading = isLoading;
@@ -104,13 +108,13 @@ class MedicinesStore {
     this.setRows([]);
 
     try {
+      console.log(filters);
       const response = await this.baseService.consultarMedicamentos(
         filters,
         offset,
         limit
       );
-      console.log(response)
-      this.quantidadeRegistros()
+      this.quantidadeRegistros();
       runInAction(() => {
         this.setRows(response);
       });
