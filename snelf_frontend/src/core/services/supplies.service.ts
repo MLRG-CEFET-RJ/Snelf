@@ -25,6 +25,7 @@ export class SuppliesService {
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
+      console.log('importFile', response.data)
       return response.data;
     } catch (error) {
       throw error;
@@ -37,11 +38,12 @@ export class SuppliesService {
     limit: number
   ): Promise<any> {
     try {
+        console.log('ouuuu')
       const response = await this.axiosInstace.get(
-        `/medicamentos/buscar-produtos?offset=${offset}&limit=${limit}`,
+        `/suprimentos/buscar-produtos?offset=${offset}&limit=${limit}`,
         { params: filters }
       );
-      console.log(response.data);
+      console.log('consultarSuprimentos',response.data);
       return response.data;
     } catch (error) {
       throw error;

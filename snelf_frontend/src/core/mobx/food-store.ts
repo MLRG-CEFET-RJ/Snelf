@@ -113,7 +113,7 @@ class FoodStore {
         offset,
         limit
       );
-      this.quantidadeRegistros(filters);
+    //   this.quantidadeRegistros(filters);
       runInAction(() => {
         this.setRows(response);
       });

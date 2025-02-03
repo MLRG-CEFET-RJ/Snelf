@@ -19,6 +19,20 @@ export const FoodPage = observer(() => {
     unidadeComercial,
     valorUnitarioComercial,
   } = foodStore || {};
+
+  // Função para transformar os objetos em arrays de strings
+  const transformRows = (rows: any) => {
+    if (!rows || !Array.isArray(rows)) return [];
+    return rows.map(row => [
+      row.CodigoNFe?.toString() || "", // Exemplo de campo
+      row.DataEmissao || "",           // Exemplo de campo
+      row.MunicipioEmitente || "",     // Exemplo de campo
+      row.unidadecomercial || "",      // Exemplo de campo
+      row.quantidadecomercial?.toString() || "", // Exemplo de campo
+      // Adicione outros campos conforme necessário
+    ]);
+  };
+
   useEffect(() => {
     const fetch = async () => {
       await foodStore.loadTableRows(
@@ -32,7 +46,7 @@ export const FoodPage = observer(() => {
         limit
       );
     };
-
+    console.log('useEffect', rows);
     fetch();
   }, [
     offset,
@@ -54,6 +68,9 @@ export const FoodPage = observer(() => {
     setOffset(0);
   };
 
+  // Transforma as rows antes de passar para o componente Table
+  const transformedRows = transformRows(rows);
+
   return (
     <div
       style={{
@@ -71,7 +88,7 @@ export const FoodPage = observer(() => {
         <MedicinesFilters />
         <Table
           columns={columns}
-          rows={rows}
+          rows={transformedRows} // Passa as rows transformadas
           count={rowsCount}
           offset={offset}
           limit={limit}

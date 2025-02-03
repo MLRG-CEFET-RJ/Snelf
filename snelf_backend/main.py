@@ -1,7 +1,7 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional, Dict
-
+import pandas as pd
 import uvicorn
 
 from http import HTTPStatus
@@ -142,14 +142,82 @@ def consultar_colunas():
     try:
         return {
             'medicamentos':  ['Clean','Descricao', 'Grupo', 'Quantidade', 'Valor Unitário'],
-            'suprimentos': ['UF', 'Nome', 'Ano', 'Descrição', 'Quantidade', 'Valor Unitário'],
-            'alimentos': ['UF', 'Nome', 'Ano', 'Descrição', 'Quantidade', 'Valor Unitário'],
-            'escolares': ['UF', 'Nome', 'Ano', 'Descrição', 'Quantidade', 'Valor Unitário']
+            'suprimentos': ['Clean','Descricao', 'Grupo', 'Quantidade', 'Valor Unitário'],
+            'alimentos': ['Clean','Descricao', 'Grupo', 'Quantidade', 'Valor Unitário'],
+            'escolares': ['Clean','Descricao', 'Grupo', 'Quantidade', 'Valor Unitário'],
         }
     except Exception as error:
         print(f'ERROR :: consultar_colunas :: {error}')
         raise HTTPException(status_code=500, detail='Ocorreu um erro ao tentar obter as colunas')
 
+def load_and_filter_csv(file: str, filters: dict, offset: int, limit: int):
+    try:
+        # Carrega o arquivo CSV
+        df = pd.read_csv(file)
+        print('oi', df)
+        # Aplica os filtros
+        if filters.get('clean'):
+            df = df[df['clean'] == filters['clean']]
+        if filters.get('descricaoProduto'):
+            df = df[df['descricaoProduto'].str.contains(filters['descricaoProduto'], case=False, na=False)]
+        if filters.get('unidadeComercial'):
+            df = df[df['unidadeComercial'] == filters['unidadeComercial']]
+        if filters.get('valorUnitarioComercial'):
+            df = df[df['valorUnitarioComercial'] == filters['valorUnitarioComercial']]
+
+        # Aplica a paginação
+        paginated_df = df.iloc[offset:offset + limit]
+
+        # Converte o DataFrame para uma lista de dicionários
+        return paginated_df.to_dict(orient='records')
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/suprimentos/buscar-produtos")
+async def search_supplies(clean: Optional[str] = None, descricaoProduto: Optional[str] = None, unidadeComercial: Optional[str] = None, valorUnitarioComercial: Optional[str] = None, offset: int = 0, limit: int = 10):
+    try:
+        filters = {
+            'clean': clean,
+            'descricaoProduto': descricaoProduto,
+            'unidadeComercial': unidadeComercial,
+            'valorUnitarioComercial': valorUnitarioComercial,
+        }
+        supplies = load_and_filter_csv('produtos_informatica.csv',filters, offset, limit)
+        return supplies
+    except Exception as error:
+        print(f'ERROR :: search_medicines :: {error}')
+        raise HTTPException(status_code=500, detail='Ocorreu um erro ao tentar consultar os suprimentos')
+    
+@app.get("/alimentos/buscar-produtos")
+async def search_food(clean: Optional[str] = None, descricaoProduto: Optional[str] = None, unidadeComercial: Optional[str] = None, valorUnitarioComercial: Optional[str] = None, offset: int = 0, limit: int = 10):
+    try:
+        filters = {
+            'clean': clean,
+            'descricaoProduto': descricaoProduto,
+            'unidadeComercial': unidadeComercial,
+            'valorUnitarioComercial': valorUnitarioComercial,
+        }
+        food = load_and_filter_csv('produtos_alimenticios.csv',filters, offset, limit)
+        return food
+    except Exception as error:
+        print(f'ERROR :: search_medicines :: {error}')
+        raise HTTPException(status_code=500, detail='Ocorreu um erro ao tentar consultar os alimentos')
+    
+@app.get("/produtos-escolares/buscar-produtos")
+async def search_school_products(clean: Optional[str] = None, descricaoProduto: Optional[str] = None, unidadeComercial: Optional[str] = None, valorUnitarioComercial: Optional[str] = None, offset: int = 0, limit: int = 10):
+    try:
+        filters = {
+            'clean': clean,
+            'descricaoProduto': descricaoProduto,
+            'unidadeComercial': unidadeComercial,
+            'valorUnitarioComercial': valorUnitarioComercial,
+        }
+        school_products = load_and_filter_csv('produtos_escolares.csv',filters, offset, limit)
+        return school_products
+    except Exception as error:
+        print(f'ERROR :: search_medicines :: {error}')
+        raise HTTPException(status_code=500, detail='Ocorreu um erro ao tentar consultar os suprimentos')
+    
 app = CORSMiddleware(
     app=app,
     allow_origins=["*"],

@@ -38,7 +38,7 @@ export class FoodService {
   ): Promise<any> {
     try {
       const response = await this.axiosInstace.get(
-        `/medicamentos/buscar-produtos?offset=${offset}&limit=${limit}`,
+        `/alimentos/buscar-produtos?offset=${offset}&limit=${limit}`,
         { params: filters }
       );
       console.log(response.data);

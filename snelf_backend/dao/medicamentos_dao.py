@@ -160,4 +160,4 @@ class MedicamentosDAO(BaseDAO):
 
         return self.select(query);
         
-
+    

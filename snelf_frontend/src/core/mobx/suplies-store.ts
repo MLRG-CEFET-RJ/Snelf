@@ -113,7 +113,8 @@ class SuppliesStore {
         offset,
         limit
       );
-      this.quantidadeRegistros(filters);
+    //   this.quantidadeRegistros(filters);
+      console.log('ou', response)
       runInAction(() => {
         this.setRows(response);
       });
