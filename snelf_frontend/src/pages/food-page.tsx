@@ -4,8 +4,8 @@ import { MedicinesFilters } from "../components/medicines-filters/medicines-filt
 import { useEffect } from "react";
 import Table from "../components/table";
 
-export const SuppliesPage = observer(() => {
-  const { suppliesStore } = useStore();
+export const FoodPage = observer(() => {
+  const { foodStore } = useStore();
   const {
     rows,
     columns,
@@ -18,10 +18,10 @@ export const SuppliesPage = observer(() => {
     descricaoProduto,
     unidadeComercial,
     valorUnitarioComercial,
-  } = suppliesStore || {};
+  } = foodStore || {};
   useEffect(() => {
     const fetch = async () => {
-      await suppliesStore.loadTableRows(
+      await foodStore.loadTableRows(
         {
           clean: clean,
           descricaoProduto: descricaoProduto,

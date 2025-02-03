@@ -142,7 +142,9 @@ def consultar_colunas():
     try:
         return {
             'medicamentos':  ['Clean','Descricao', 'Grupo', 'Quantidade', 'Valor Unitário'],
-            'suprimentos': ['UF', 'Nome', 'Ano', 'Descrição', 'Quantidade', 'Valor Unitário', 'Valor Total']
+            'suprimentos': ['UF', 'Nome', 'Ano', 'Descrição', 'Quantidade', 'Valor Unitário'],
+            'alimentos': ['UF', 'Nome', 'Ano', 'Descrição', 'Quantidade', 'Valor Unitário'],
+            'escolares': ['UF', 'Nome', 'Ano', 'Descrição', 'Quantidade', 'Valor Unitário']
         }
     except Exception as error:
         print(f'ERROR :: consultar_colunas :: {error}')

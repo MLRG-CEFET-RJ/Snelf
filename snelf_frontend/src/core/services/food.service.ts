@@ -2,7 +2,7 @@ import { FilterType } from "../../types/types";
 import { BASE_URL } from "../../config/config";
 import axios, { AxiosInstance } from "axios";
 
-export class SuppliesService {
+export class FoodService {
   private baseUrl = `${BASE_URL}/`;
   private axiosInstace: AxiosInstance;
 
@@ -31,7 +31,7 @@ export class SuppliesService {
     }
   }
 
-  async consultarSuprimentos(
+  async consultarAlimentos(
     filters: FilterType,
     offset: number,
     limit: number
@@ -50,7 +50,7 @@ export class SuppliesService {
 
   async totalRegistros(filters: FilterType): Promise<any> {
     const response = await this.axiosInstace.get(
-      "/produtos-escolares/quantidade-resgistros",
+      "/alimentos/quantidade-resgistros",
       { params: filters }
     );
     return response.data;

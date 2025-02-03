@@ -1,8 +1,8 @@
 import { makeObservable, observable, action, runInAction } from "mobx";
-import { SuppliesService } from "../../core/services/supplies.service";
+import { FoodService } from "../../core/services/food.service";
 import { FilterType } from "../../types/types";
 
-class SuppliesStore {
+class FoodStore {
   rows: string[][] = [];
   rowsCount: number | undefined;
   isLoading: boolean = false;
@@ -11,7 +11,7 @@ class SuppliesStore {
   offset: number = 0;
   status: string | null = null;
   columns: string[] = [];
-  private baseService: SuppliesService;
+  private baseService: FoodService;
   clean: string = "";
   descricaoProduto: string = "";
   unidadeComercial: string = "";
@@ -39,14 +39,14 @@ class SuppliesStore {
       setOffset: action,
       setLimit: action,
       loadTableRows: action,
-      importMedicinesCsv: action,
+      importFoodCsv: action,
       setClean: action,
       setDescricaoProduto: action,
       setUnidadeComercial: action,
       setValorUnitarioComercial: action,
     });
 
-    this.baseService = new SuppliesService();
+    this.baseService = new FoodService();
   }
 
   setClean = (clean: string) => {
@@ -108,7 +108,7 @@ class SuppliesStore {
     this.setRows([]);
 
     try {
-      const response = await this.baseService.consultarSuprimentos(
+      const response = await this.baseService.consultarAlimentos(
         filters,
         offset,
         limit
@@ -128,7 +128,7 @@ class SuppliesStore {
     }
   };
 
-  importMedicinesCsv = async (csvFile: File) => {
+  importFoodCsv = async (csvFile: File) => {
     this.setLoading(true);
     this.setError(null);
     try {
@@ -157,4 +157,4 @@ class SuppliesStore {
   };
 }
 
-export const suppliesStore = new SuppliesStore();
+export const foodStore = new FoodStore();

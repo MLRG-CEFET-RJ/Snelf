@@ -2,7 +2,7 @@ import { FilterType } from "../../types/types";
 import { BASE_URL } from "../../config/config";
 import axios, { AxiosInstance } from "axios";
 
-export class SuppliesService {
+export class SchoolProductsService {
   private baseUrl = `${BASE_URL}/`;
   private axiosInstace: AxiosInstance;
 
@@ -31,7 +31,7 @@ export class SuppliesService {
     }
   }
 
-  async consultarSuprimentos(
+  async consultarProdutosEscolares(
     filters: FilterType,
     offset: number,
     limit: number
