@@ -19,16 +19,17 @@ export const FoodPage = observer(() => {
     unidadeComercial,
     valorUnitarioComercial,
   } = foodStore || {};
+  const transformColumn = ['Clean', 'Descricao', 'Grupo', 'Quantidade', 'Valor Unitário']
 
   // Função para transformar os objetos em arrays de strings
   const transformRows = (rows: any) => {
     if (!rows || !Array.isArray(rows)) return [];
     return rows.map(row => [
-      row.CodigoNFe?.toString() || "", // Exemplo de campo
-      row.DataEmissao || "",           // Exemplo de campo
-      row.MunicipioEmitente || "",     // Exemplo de campo
-      row.unidadecomercial || "",      // Exemplo de campo
-      row.quantidadecomercial?.toString() || "", // Exemplo de campo
+        row.CLEAN?.toString() || "", // Exemplo de campo
+        row.DescricaoProduto  || "",           // Exemplo de campo
+        row.unidadecomercial      || "",     // Exemplo de campo
+        row.quantidadecomercial?.toString()       || "",      // Exemplo de campo
+        row.valorunitariocomercial?.toString() || "", // Exemplo de campo
       // Adicione outros campos conforme necessário
     ]);
   };
@@ -87,7 +88,7 @@ export const FoodPage = observer(() => {
       >
         <MedicinesFilters />
         <Table
-          columns={columns}
+          columns={transformColumn}
           rows={transformedRows} // Passa as rows transformadas
           count={rowsCount}
           offset={offset}
