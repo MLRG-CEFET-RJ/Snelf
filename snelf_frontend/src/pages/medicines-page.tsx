@@ -2,7 +2,7 @@ import useStore from "../core/mobx/use-store";
 import { observer } from "mobx-react-lite";
 import { MedicinesFilters } from "../components/medicines-filters/medicines-filter";
 import { useEffect } from "react";
-import Table from "../components/table";
+import Table from "../components/Table";
 
 export const MedicinesPage = observer(() => {
   const { medicinesStore } = useStore();
